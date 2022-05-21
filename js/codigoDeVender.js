@@ -19,9 +19,9 @@ let opcion = 0;
 
 function generarMensaje(listaDeProductos){
     let mensaje = "Bienvenido a la tienda que desea comprar:\n";
-    for(let i in listaDeProductos){
-        mensaje += (`${parseInt(i)+1}- Marca ${listaDeProductos[i].marca}\n   Nombre: ${listaDeProductos[i].nombre} \n   Precio: ${listaDeProductos[i].precio}\n   Cantidad: ${listaDeProductos[i].cantidad}\n\n`)
-    }
+    listaDeProductos.forEach((elemento,i) =>{
+        mensaje += (`${i+1}- Marca ${elemento.marca}\n   Nombre: ${elemento.nombre} \n   Precio: ${elemento.precio}\n   Cantidad: ${elemento.cantidad}\n\n`);
+    });
     mensaje += "X- Salir"
     return mensaje;
 }
