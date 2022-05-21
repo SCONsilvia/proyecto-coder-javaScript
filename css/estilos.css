@@ -1,0 +1,226 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.calculadora{
+    display: grid;
+    grid-template-columns: repeat(5, 80px);
+    grid-template-rows: 1fr repeat(3, 80px);
+    gap: 10px;
+    background-color: #767374;
+    border-radius: 5px;
+    padding: 20px;
+    width: 480px;
+    justify-content: center;
+
+}
+
+.espacioDoble{
+    grid-column-start: 4;
+    grid-column-end: 6;
+    grid-row-start: 5;
+    grid-row-end: 6;
+}
+
+.entrada{
+    grid-column-start: 1;
+    grid-column-end: 6;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    background-color: #a10030;
+    color: white;
+    box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15),
+        -6px -6px 10px -1px rgba(255, 255, 255, 0.7);
+}
+
+.entrada:focus{
+    background-color: #d60040;
+    border: 1px solid transparent;
+}
+
+.operacionA{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+    width: 100%;
+    text-decoration: none;
+    border-radius: 5px;
+    color: white;
+    background-color: #a10030;
+    box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15),
+        -6px -6px 10px -1px rgba(255, 255, 255, 0.7);
+}
+
+.operacionA:active{
+    background-color: #d60040;
+    box-shadow: 6px 6px 10px -1px rgba(52, 13, 150, 0.15),
+        -6px -6px 10px -1px rgba(255, 255, 255, 0.7);
+}
+
+.principal{
+    display: grid;
+    grid-template-columns: 500px 1fr;
+}
+
+.productos{
+    grid-column-start: 2;
+    grid-column-end: 3;
+}
+
+header{
+    height: 200px;
+    background-color: rebeccapurple;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav__list{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    list-style: none;
+    column-gap: 10px;
+}
+
+.nav__item{
+    color: white;
+    font-size: 2rem;
+    text-decoration: none;
+    border:#a10030 solid;
+    border-radius:5px;
+    padding: 5px;
+}
+
+.nav__item:visited{
+    color: white;
+}
+
+.productos{
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 10px;
+    row-gap: 50px;
+}
+
+.producto{
+    width: 250px;
+    border: solid #d60040;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    margin: auto auto;
+    position: relative;
+}
+
+
+.producto__informacion{
+    padding: 10px;
+    margin-top: 15px;
+}
+
+.producto__informacion__marca{
+    color: #767374;
+    margin-bottom: 3px;
+}
+
+.producto__informacion__titulo{
+    font-size: 1.5rem;
+    margin-bottom: 3px;
+}
+
+.producto__informacion__precio{
+    font-size: 1.4rem;
+    margin-bottom: 3px;
+}
+
+.linea{
+    border-bottom: #d60040 solid;
+    position: relative;
+}
+
+.carritoProducto{
+    font-size: 1.6rem;
+    color: white;
+    width: 27px;
+    height: 27px;
+    position: absolute;
+    top: -23px;
+    background-color: #d60040;
+    padding: 10px;
+    border-radius: 28px;
+    text-decoration: none;
+    /* centrar con un ancho puesto */
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    /* quitando la sombra de arriba */
+    box-shadow: none;
+    /* animacion: que animar, duracion */
+    transition: all .5s; 
+}
+
+.carritoProducto p{
+    display: none;
+    font-size: 1.4rem;
+}
+
+.carritoProducto:hover p{
+    display: block;
+}
+
+.carritoProducto:hover i{
+    display: none;
+}
+
+.carritoProducto:hover {
+    /*animacion a hacer*/
+    background-color: aquamarine;
+    width: 150px;
+}
+  
+/* .carritoProducto:hover{
+    animation: animacionBotonDeCompra 1s;
+    animation-fill-mode: forwards;
+    
+} */
+
+.carritoProducto:active{
+    /* quitando la sombra de arriba */
+    box-shadow: none;
+}
+
+/* @keyframes animacionBotonDeCompra{
+    0%{
+        width: 27px;
+        background-color: red;
+    }100%{
+        content: "A;adir al carrito";
+        width: 150px;
+        background-color: aquamarine;
+    }
+} */
+
+.contenedorImg{
+    padding: 10px;
+}
+img{
+    width: 100%;
+    
+}
+
+.corazon{
+    position: absolute;
+    top: 7px;
+    right: 8px;
+    font-size: 1.3rem;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+}
