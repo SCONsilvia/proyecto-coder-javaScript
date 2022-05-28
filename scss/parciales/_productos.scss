@@ -1,0 +1,149 @@
+.principal{
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    
+    .formulario__contenedor{
+        margin: 20px;
+
+        &__titulo{
+            font-weight: 600;
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        &__item{
+            font-size: 1.1rem;
+            margin-bottom: 3px;
+        }
+
+        .fieldset{
+            border:0;
+        }
+
+        &__rango{
+            display: flex;
+            column-gap: 15px;
+            
+            .inputPrecio{
+                width: 100px;
+                height: 20px;
+                padding: 2px;
+                border-radius: 5px;
+                border: 1px solid rgb(57, 41, 55);
+            }
+
+            .inputBoton{
+                width: 27px;
+                background-color: white;
+                border-radius: 11px;
+                border: 1px solid rgb(57, 41, 55);
+                cursor: pointer;
+
+                &:active{
+                    background-color: red;
+                }
+            }
+        }
+    }
+
+
+
+    .productos{
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: 10px;
+        row-gap: 50px;
+        padding: 30px;
+        grid-column-start: 2;
+        grid-column-end: 3;
+
+        .producto{
+            width: 250px;
+            border: solid #d60040;
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+            margin: auto auto;
+            position: relative;
+
+            .contenedorImg{
+                padding: 10px;
+
+                img{
+                    width: 100%;
+                }
+            }
+
+            .linea{
+                border-bottom: #d60040 solid;
+                position: relative;
+
+                .botonAnadir{
+                    font-size: 1.6rem;
+                    color: white;
+                    width: 27px;
+                    height: 27px;
+                    position: absolute;
+                    top: -23px;
+                    background-color: #d60040;
+                    padding: 10px;
+                    border-radius: 28px;
+                    text-decoration: none;
+                    /* centrar con un ancho puesto*/
+                    margin-left: auto;
+                    margin-right: auto;
+                    left: 0;
+                    right: 0;
+                    text-align: center;
+                    /* animacion: que animar, duracion */
+                    transition: all .5s; 
+
+                    &:hover {
+                        /*animacion a hacer*/
+                        background-color: aquamarine;
+                        width: 150px;
+
+                        & p{
+                            display: block;
+                        }
+
+                        & i{
+                            display: none;
+                        }
+                    }
+
+                    .letrasAnadirAlCarrito{
+                        display: none;
+                        font-size: 1.4rem;
+                    }
+                }
+            }
+
+            &__informacion{
+                padding: 10px;
+                margin-top: 15px;
+
+                &__marca{
+                    color: #767374;
+                    margin-bottom: 3px;
+                }
+                
+                &__titulo{
+                    font-size: 1.5rem;
+                    margin-bottom: 3px;
+                }
+                
+                &__precio{
+                    font-size: 1.4rem;
+                    margin-bottom: 3px;
+                }
+            }
+
+            .corazon{
+                position: absolute;
+                top: 7px;
+                right: 8px;
+                font-size: 1.3rem;
+            }
+        }
+    }
+}

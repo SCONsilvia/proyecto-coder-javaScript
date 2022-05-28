@@ -1,0 +1,136 @@
+.calculadora{
+    display: grid;
+    /*"area" column/ row*/
+    grid-template-areas: "busquedad busquedad busquedad busquedad"
+    "mod division borrar borrar"
+    "siete ocho nueve multiplicacion"
+    "cuatro cinco seis restar"
+    "uno dos tres sumar"
+    "neg cero coma igual";
+    grid-template-columns: repeat(4, 80px);
+    grid-template-rows: 1fr repeat(5, 80px);
+    gap: 10px;
+    background-color: #764aa1;
+    border-radius: 5px;
+    padding: 20px;
+    width: 350px;
+    justify-content: center;
+
+    .entradaDeDatos{
+        grid-area: busquedad;
+        padding: 10px;
+        border-radius: 4px;
+        border: 1px solid transparent;
+        background-color: #990026;
+        color: white;
+        box-shadow: 6px 6px 10px -1px rgba(52, 13, 150, 0.15),
+            -6px -6px 10px -1px rgba(33, 198, 179, 0.7);
+
+            &:focus{
+                background-color: #d60040;
+                border: 1px solid transparent;
+            }
+    }
+
+    .botonesCalculadora{
+        cursor: pointer;
+        text-align: center;
+        font-size: 4rem;
+        text-decoration: none;
+        border-radius: 5px;
+        color: white;
+        background-color: #990026;
+        box-shadow: 6px 6px 10px -1px rgba(0, 255, 203, 0.96), -6px -6px 10px -1px rgba(226, 30, 30, 0.1);
+
+        &:active{
+            background-color: #d60040;
+            box-shadow: 6px 6px 10px -1px rgba(52, 13, 150, 0.15),
+                -6px -6px 10px -1px rgba(33, 198, 179, 0.7);
+        }
+    }
+
+}
+
+
+
+
+
+
+
+
+
+#f6{
+    grid-area: borrar;
+}
+
+#n1{
+    grid-area: uno;
+}
+
+#n2{
+    grid-area: dos;
+}
+
+#n3{
+    grid-area: tres;
+}
+
+#n4{
+    grid-area: cuatro;
+}
+
+#n5{
+    grid-area: cinco;
+}
+
+#n6{
+    grid-area: seis;
+}
+
+#n7{
+    grid-area: siete;
+}
+
+#n8{
+    grid-area: ocho;
+}
+
+#n9{
+    grid-area: nueve;
+}
+
+#n0{
+    grid-area: cero;
+}
+
+#f1{
+    grid-area: sumar;
+}
+
+#f2{
+    grid-area: restar;
+}
+
+#f4{
+    grid-area: division;
+}
+
+#f3{
+    grid-area: multiplicacion;
+}
+
+#f8{
+    grid-area: mod;
+}
+
+#f7{
+    grid-area: neg;
+}
+
+#f5{
+    grid-area: igual;
+}
+
+#f9{
+    grid-area: coma;
+}

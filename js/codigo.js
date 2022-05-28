@@ -1,70 +1,85 @@
+let botonesCalculadora = document.getElementsByClassName("botonesCalculadora");
+let inputCalculadora = document.getElementById("inputDatos");
+
+function mostrar(elemento){
+    if(elemento.id == "f6"){
+        inputCalculadora.value = inputCalculadora.value.slice(0, -1)/*Copiar desde la pocision 0 del array hasya la penultima*/
+    }else if(elemento.id == "f5"){
+        mostrarResultado();
+    }else{
+        inputCalculadora.value += elemento.innerHTML;
+    }
+}
+
+
+
+function miPropioSplit(arrayAPicar, arrayDePicacion){
+    let numero = "";
+    let array = [];
+    numero += arrayAPicar[0];
+    for(let elemento in arrayAPicar){
+        if(parseInt(elemento) === 0){
+            continue;
+        }
+        let estaElElemento = arrayDePicacion.find((elementoDeArrayDePicacion) => elementoDeArrayDePicacion == arrayAPicar[elemento])
+        if(estaElElemento != undefined){
+            if(arrayDePicacion.some((elementoDelArray) => elementoDelArray == arrayAPicar[elemento - 1]) ){
+                numero += arrayAPicar[elemento];
+            }else{
+                array.push(numero);
+                array.push(arrayAPicar[elemento]);
+                numero = "";
+            }   
+        }else{
+            numero += arrayAPicar[elemento];
+        }
+    }
+    array.push(numero);
+    return array
+}
+
 const suma = (a, b) => a + b;
 const resta = (a, b) => a - b;
 const multiplicacion = (a, b) => a * b;
 const division = (a, b) => a / b;
 
-function pedirDatoNumerico(){
-    return parseInt(prompt("Ingrese el primer valor:"));
-}
-
-function resultado(a,b,funcion){
+function queOperacionUsar(a,b,funcion){
     return funcion(a,b);
 }
 
-let opcion;
-
-do{
-    opcion = prompt("Escoger operacion a hacer entre dos valores: \n1-Suma. \n2-Resta. \n3-Multiplicacion. \n4-Division. \nX-salir");
-    
-    if (opcion.toUpperCase() != "X"){
-        let numero1;
-        let numero2;
-
-        if(opcion == "1" || opcion == "2" || opcion == "3" || opcion == "4"){
-            numero1 = pedirDatoNumerico();
-            numero2 = pedirDatoNumerico();
+function mostrarResultado(){
+    let inputOperacion = inputCalculadora.value;
+    let arrayDeOperacion = miPropioSplit(inputOperacion, ["+","-","*","/"]);
+    let operacion;
+    let a;
+    let b;
+    let resultado
+    while(arrayDeOperacion.length > 1){
+        if(arrayDeOperacion[1] == "+"){
+            operacion = suma;
+            a = arrayDeOperacion[0];
+            b = arrayDeOperacion[2];
+        }else if(arrayDeOperacion[1] == "-"){
+            operacion = resta;
+            a = arrayDeOperacion[0];
+            b = arrayDeOperacion[2];
+        }else if(arrayDeOperacion[1] == "*"){
+            operacion = multiplicacion;
+            a = arrayDeOperacion[0];
+            b = arrayDeOperacion[2];
+        }else if(arrayDeOperacion[1] == "/"){
+            operacion = division;
+            a = arrayDeOperacion[0];
+            b = arrayDeOperacion[2];
         }
-        let funcionAUsar;
-        let mensaje;
-        let mensajeDeError = true;
-
-        switch (opcion) {
-            case "1":
-                funcionAUsar = suma;
-                mensaje = "suma"
-                break;
-
-            case "2":
-                funcionAUsar = resta;
-                mensaje = "resta"
-                break;
-
-            case "3":
-                funcionAUsar = multiplicacion;
-                mensaje = "multiplicaion"
-                break;
-
-            case "4": 
-                mensaje = "division"
-                if(numero2 != 0){
-                    funcionAUsar = division;
-                }else{
-                    alert("Resultado Indefinido");
-                    mensajeDeError = false;
-                }
-                break;
-
-        
-            default:
-                alert("Opcion no valida");
-                mensajeDeError = false;
-                break;
-        }
-        if(mensajeDeError){
-            alert("el resultado de la "+ mensaje + " es " + resultado(numero1, numero2, funcionAUsar));
-            
-        }
+        resultado = queOperacionUsar(parseInt(a),parseInt(b),operacion);
+        arrayDeOperacion.shift();
+        arrayDeOperacion.shift();
+        arrayDeOperacion[0] = resultado;
     }
+    inputCalculadora.value = resultado;
+}
 
-}while(opcion.toUpperCase() != "X");
-
+for(let elemento of botonesCalculadora){
+    elemento.addEventListener("click", () => {mostrar(elemento)})
+}

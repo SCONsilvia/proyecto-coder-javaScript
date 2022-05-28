@@ -19,149 +19,121 @@
                 <li><a class="nav__item" href="productos.html">compra</a></li>
             </ul>
         </nav>
+        <div class="carrito">
+            <i class="fa-solid fa-cart-shopping carrito__icono"></i>
+            <div class="carrito__vista">
+                <p class="carrito__vista__titulo">Tus productos</p>
+                <div id="productosCarrito"></div>
+                <!-- <div class="productoCarrito">
+                    <a href="#" class="quitarProducto">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </a>
+                    <div class="contenedorImagenCarrito">
+                        <img src="../imagenes/Calculator-bro.png">
+                    </div>
+                    <div class="productoCarrito__informacion">
+                        <h2 class="productoCarrito__informacion__titulo">Calculadora Casio</h2>
+                        <p class="productoCarrito__informacion__precio">U$S5555</p>
+                    </div>
+                </div>
+                <div class="productoCarrito">
+                    <a href="#" class="quitarProducto">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </a>
+                    <div class="contenedorImagenCarrito">
+                        <img src="../imagenes/Calculator-bro.png">
+                    </div>
+                    <div class="productoCarrito__informacion">
+                        <h2 class="productoCarrito__informacion__titulo">Calculadora Casio</h2>
+                        <p class="productoCarrito__informacion__precio">U$S5555</p>
+                    </div>
+                </div> -->
+                <a href="#">Confirmar compra</a>
+            </div>
+        </div>
     </header>
     <main>
         <div class="principal">
             <div class="filtros">
-                <form>
-                    <div>
-                        <p>Marca</p>
-                        <div>
-                            <label for="marca1">Casio</label>
+                <form class="formulario">
+                    <div class="formulario__contenedor">
+                        <p class="formulario__contenedor__titulo">Marca</p>
+                        <div class="formulario__contenedor__item">
+                            <input type="checkbox" id="marca0"></input>
+                            <label for="marca0">Todo</label>
+                        </div>
+                        <div class="formulario__contenedor__item">
                             <input type="checkbox" id="marca1"></input>
+                            <label for="marca1">Casio</label>
                         </div>
-                        <div>
-                            <label for="marca2">HP</label>
+                        <div class="formulario__contenedor__item">
                             <input type="checkbox" id="marca2"></input>
+                            <label for="marca2">HP</label>
                         </div>
-                        <div>
-                            <label for="marca3">Canon</label>
+                        <div class="formulario__contenedor__item">
                             <input type="checkbox" id="marca3"></input>
+                            <label for="marca3">Canon</label>
                         </div>
-                        <div>
-                            <label for="marca4">Olivetti</label>
+                        <div class="formulario__contenedor__item">
                             <input type="checkbox" id="marca4"></input>
+                            <label for="marca4">Olivetti</label>
                         </div>
-                        <div>
-                            <label for="marca5">Ibico</label>
+                        <div class="formulario__contenedor__item">
                             <input type="checkbox" id="marca5"></input>
+                            <label for="marca5">Ibico</label>
                         </div>
                     </div>
-                    <div>
-                        <p>Tipo</p>
-                        <div>
-                            <label for="tipo1">Bolsillo</label>
+                    <div class="formulario__contenedor">
+                        <p class="formulario__contenedor__titulo">Tipo</p>
+                        <div class="formulario__contenedor__item">
+                            <input type="checkbox" id="tipo0"></input>
+                            <label for="tipo0">Todo</label>
+                        </div>
+                        <div class="formulario__contenedor__item">
                             <input type="checkbox" id="tipo1"></input>
+                            <label for="tipo1">Bolsillo</label>
                         </div>
-                        <div>
-                            <label for="tipo2">Sobremesa</label>
+                        <div class="formulario__contenedor__item">
                             <input type="checkbox" id="tipo2"></input>
+                            <label for="tipo2">Sobremesa</label>
                         </div>
-                        <div>
-                            <label for="tipo3">Cientifica</label>
+                        <div class="formulario__contenedor__item">
                             <input type="checkbox" id="tipo3"></input>
+                            <label for="tipo3">Cientifica</label>
                         </div>
-                        <div>
-                            <label for="tipo4">Con impresora integrada</label>
+                        <div class="formulario__contenedor__item">
                             <input type="checkbox" id="tipo4"></input>
+                            <label for="tipo4">Con impresora integrada</label>
                         </div>
-                        <div>
-                            <label for="tipo5">Solar</label>
+                        <div class="formulario__contenedor__item">
                             <input type="checkbox" id="tipo5"></input>
+                            <label for="tipo5">Solar</label>
                         </div>
                     </div>
+                    <div class="formulario__contenedor">
+                        <fieldset class="fieldset">
+                            <legend><p class="formulario__contenedor__titulo">Precio</p></legend>
+                            <div class="formulario__contenedor__item">
+                                <label for="precio1">Hasta 50$</label>
+                                <input type="radio" name="precio" id="precio1"></input> 
+                            </div>
+                            <div class="formulario__contenedor__item">
+                                <label for="precio2">De 50$ hasta 100$</label>
+                                <input type="radio" name="precio" id="precio2"></input> 
+                            </div>
+                            <div class="formulario__contenedor__rango">
+                                <input class="inputPrecio" type="number" id="precioDesde" name="precio" placeholder="Desde">
+                                <input class="inputPrecio" type="number" id="precioHasta" name="precio" placeholder="Hasta">
+                                <input class="inputBoton" type="button" value=">">
+                            </div>
+                        </fieldset>
+                    </div>
+                </form>
             </div>
-            <div class="productos">
-                <div class="producto">
-                    <div class="contenedorImg">
-                        <img src="../imagenes/Calculator-bro.png">
-                    </div>
-                    <div class="linea">
-                        <a href="#" class="carritoProducto">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                            <p class="anadirCarrito">Anadir al carrito</p>
-                        </a>
-                    </div>
-                    <div class="producto__informacion">
-                        <p class="producto__informacion__marca">Casio</p>
-                        <h2 class="producto__informacion__titulo">Casio FX-991SPX II</h2>
-                        <p class="producto__informacion__precio">U$S38.02</p>
-                        <a href="#" class="corazon">
-                            <i class="fa-regular fa-heart"></i>
-                        </a>
-                        <!-- <span>
-                            <i class="fa-solid fa-heart"></i>
-                        </span> -->
-                    </div>
-                </div>
-                <div class="producto">
-                    <div class="contenedorImg">
-                        <img src="../imagenes/Calculator-bro.png">
-                    </div>
-                    <div class="linea">
-                        <a href="#" class="carritoProducto">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                            <p class="anadirCarrito">Anadir al carrito</p>
-                        </a>
-                    </div>
-                    <div class="producto__informacion">
-                        <p class="producto__informacion__marca">Casio</p>
-                        <h2 class="producto__informacion__titulo">Casio FX-991SPX II</h2>
-                        <p class="producto__informacion__precio">U$S38.02</p>
-                        <a href="#" class="corazon">
-                            <i class="fa-regular fa-heart"></i>
-                        </a>
-                        <!-- <span>
-                            <i class="fa-solid fa-heart"></i>
-                        </span> -->
-                    </div>
-                </div>
-                <div class="producto">
-                    <div class="contenedorImg">
-                        <img src="../imagenes/Calculator-bro.png">
-                    </div>
-                    <div class="linea">
-                        <a href="#" class="carritoProducto">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                            <p class="anadirCarrito">Anadir al carrito</p>
-                        </a>
-                    </div>
-                    <div class="producto__informacion">
-                        <p class="producto__informacion__marca">Casio</p>
-                        <h2 class="producto__informacion__titulo">Casio FX-991SPX II</h2>
-                        <p class="producto__informacion__precio">U$S38.02</p>
-                        <a href="#" class="corazon">
-                            <i class="fa-regular fa-heart"></i>
-                        </a>
-                        <!-- <span>
-                            <i class="fa-solid fa-heart"></i>
-                        </span> -->
-                    </div>
-                </div>
-                <div class="producto">
-                    <div class="contenedorImg">
-                        <img src="../imagenes/Calculator-bro.png">
-                    </div>
-                    <div class="linea">
-                        <a href="#" class="carritoProducto">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                            <p class="anadirCarrito">Anadir al carrito</p>
-                        </a>
-                    </div>
-                    <div class="producto__informacion">
-                        <p class="producto__informacion__marca">Casio</p>
-                        <h2 class="producto__informacion__titulo">Casio FX-991SPX II</h2>
-                        <p class="producto__informacion__precio">U$S38.02</p>
-                        <a href="#" class="corazon">
-                            <i class="fa-regular fa-heart"></i>
-                        </a>
-                        <!-- <span>
-                            <i class="fa-solid fa-heart"></i>
-                        </span> -->
-                    </div>
-                </div>
+            <div class="productos" id="productos">
+
             </div>
-        </div>>
+        </div>
     </main>
     <script src="../js/codigoDeVender.js"></script>
 </body>
