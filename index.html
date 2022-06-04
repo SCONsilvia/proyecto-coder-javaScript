@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="css/estilos.css">
+
+    <!--Iconos-->
+    <script src="https://kit.fontawesome.com/5e942a7bef.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
@@ -15,10 +18,33 @@
                 <li><a class="nav__item" href="paginas/productos.html">compra</a></li>
             </ul>
         </nav>
+        <div class="carrito">
+            <i class="fa-solid fa-cart-shopping carrito__icono"></i>
+            <div class="carrito__vista">
+                <p class="carrito__vista__titulo">Confirmar compra</p>
+                <div class="precioTotal">
+                    <div class="precioTotal__div">
+                        <p>Subtotal</p>
+                        <p id="subTotal">0$</p>
+                    </div>
+                    <div class="precioTotal__div">
+                        <p class="impuestos">Impuestos</p>
+                        <p>0$</p>
+                    </div>
+                    <div class="precioTotal__div">
+                        <p id="total">Total</p>
+                        <p>0$</p>
+                    </div>
+                </div>
+                <div id="productosCarrito">
+                    
+                </div>
+                <a class="botonConfirmar">Confirmar compra</a>
+            </div>
+        </div>
     </header>
     <main>
         <h1>Calculadora</h1>
-        <h1>Solo funcionan los botones Borrar, +, -, *, /,= y todos los numeros.</h1>
         <div class="calculadora">
             <input class="entradaDeDatos" type="text" id="inputDatos">
             <a class="botonesCalculadora" id="n1">1</a>
@@ -37,12 +63,18 @@
             <a class="botonesCalculadora" id="f4">/</a>
             <a class="botonesCalculadora" id="f5">=</a>
             <a class="botonesCalculadora" id="f6">Borrar</a>
-            <a class="botonesCalculadora" id="f7">+/-</a>
-            <a class="botonesCalculadora" id="f8">%</a>
-            <a class="botonesCalculadora" id="f9">,</a>
+            <a class="botonesCalculadora" id="f7">%</a>
+            <a class="botonesCalculadora" id="f8">.</a>
+            <a class="botonesCalculadora" id="f9">Ans</a>
+            <a class="botonesCalculadora" id="f10">(</a>
+            <a class="botonesCalculadora" id="f11">)</a>
+            <a class="botonesCalculadora" id="f12">Md</a>
+            <a class="botonesCalculadora" id="f13">Ce</a>
+            <a class="botonesCalculadora" id="f14">^</a>
         </div>
     </main>
     
     <script src="js/codigo.js"></script>
+    <script src="js/carrito.js"></script>
 </body>
 </html>

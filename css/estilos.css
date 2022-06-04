@@ -69,7 +69,8 @@
           right: 0;
           text-align: center;
           /* animacion: que animar, duracion */
-          transition: all .5s; }
+          transition: all .5s;
+          cursor: pointer; }
           .principal .productos .producto .linea .botonAnadir:hover {
             /*animacion a hacer*/
             background-color: aquamarine;
@@ -102,41 +103,43 @@
 .calculadora {
   display: grid;
   /*"area" column/ row*/
-  grid-template-areas: "busquedad busquedad busquedad busquedad" "mod division borrar borrar" "siete ocho nueve multiplicacion" "cuatro cinco seis restar" "uno dos tres sumar" "neg cero coma igual";
-  grid-template-columns: repeat(4, 80px);
+  grid-template-areas: "busquedad busquedad busquedad busquedad busquedad" "mod division borrarUno borrarTodo borrarTodo" "parentesisAbierto siete ocho nueve multiplicacion" "parentesisCerrado cuatro cinco seis restar" "anterior uno dos tres sumar" "md potencia cero punto igual";
+  grid-template-columns: repeat(5, 80px);
   grid-template-rows: 1fr repeat(5, 80px);
-  gap: 10px;
+  gap: 15px;
   background-color: #764aa1;
   border-radius: 5px;
-  padding: 20px;
-  width: 350px;
-  justify-content: center; }
+  padding: 30px;
+  max-width: 450px;
+  justify-content: center;
+  margin: 0 auto; }
   .calculadora .entradaDeDatos {
     grid-area: busquedad;
+    height: 35px;
     padding: 10px;
     border-radius: 4px;
     border: 1px solid transparent;
     background-color: #990026;
     color: white;
-    box-shadow: 6px 6px 10px -1px rgba(52, 13, 150, 0.15), -6px -6px 10px -1px rgba(33, 198, 179, 0.7); }
+    box-shadow: 6px 6px 10px -1px rgba(53, 2, 182, 0.15), -6px -6px 10px -1px rgba(182, 45, 189, 0.7); }
     .calculadora .entradaDeDatos:focus {
-      background-color: #d60040;
+      background-color: #ae4162;
       border: 1px solid transparent; }
   .calculadora .botonesCalculadora {
     cursor: pointer;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 4rem;
     text-decoration: none;
     border-radius: 5px;
     color: white;
     background-color: #990026;
-    box-shadow: 6px 6px 10px -1px rgba(0, 255, 203, 0.96), -6px -6px 10px -1px rgba(226, 30, 30, 0.1); }
+    box-shadow: 6px 6px 10px -1px rgba(216, 35, 105, 0.96), -6px -6px 10px -1px rgba(226, 30, 30, 0.1);
+    font-size: 2rem; }
     .calculadora .botonesCalculadora:active {
-      background-color: #d60040;
-      box-shadow: 6px 6px 10px -1px rgba(52, 13, 150, 0.15), -6px -6px 10px -1px rgba(33, 198, 179, 0.7); }
-
-#f6 {
-  grid-area: borrar; }
+      background-color: #ae4162;
+      box-shadow: 6px 6px 10px -1px rgba(53, 2, 182, 0.15), -6px -6px 10px -1px rgba(189, 45, 134, 0.7); }
 
 #n1 {
   grid-area: uno; }
@@ -174,23 +177,41 @@
 #f2 {
   grid-area: restar; }
 
-#f4 {
-  grid-area: division; }
-
 #f3 {
   grid-area: multiplicacion; }
 
-#f8 {
-  grid-area: mod; }
-
-#f7 {
-  grid-area: neg; }
+#f4 {
+  grid-area: division; }
 
 #f5 {
   grid-area: igual; }
 
+#f6 {
+  grid-area: borrarTodo; }
+
+#f7 {
+  grid-area: mod; }
+
+#f8 {
+  grid-area: punto; }
+
 #f9 {
-  grid-area: coma; }
+  grid-area: anterior; }
+
+#f10 {
+  grid-area: parentesisAbierto; }
+
+#f11 {
+  grid-area: parentesisCerrado; }
+
+#f12 {
+  grid-area: md; }
+
+#f13 {
+  grid-area: borrarUno; }
+
+#f14 {
+  grid-area: potencia; }
 
 header {
   height: 200px;
@@ -226,25 +247,36 @@ header {
     margin: 1rem;
     text-decoration: none;
     font-size: 2rem;
-    position: relative;
-    cursor: pointer; }
+    position: relative; }
+    header .carrito .carrito__icono {
+      cursor: pointer; }
     header .carrito .carrito__vista {
-      background-color: #a029b5;
+      background-color: #610471;
       position: absolute;
       z-index: 1;
-      top: 110px;
-      left: 67px;
+      top: 104px;
+      left: 30px;
       border-radius: 10px;
-      padding: 10px;
+      padding: 15px;
       width: 400px;
-      visibility: hidden; }
+      max-height: 600px;
+      visibility: hidden;
+      cursor: default;
+      overflow-y: auto; }
       header .carrito .carrito__vista__titulo {
         font-size: 2rem;
         margin-bottom: 1rem; }
+      header .carrito .carrito__vista .precioTotal {
+        margin-bottom: 25px; }
+        header .carrito .carrito__vista .precioTotal .precioTotal__div {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 10px;
+          font-size: 1.5rem; }
       header .carrito .carrito__vista .productoCarrito {
         display: flex;
         margin-bottom: 20px;
-        border: solid red;
+        border: solid #c600dc;
         border-radius: 5px;
         padding: 5px;
         position: relative;
@@ -270,6 +302,13 @@ header {
           header .carrito .carrito__vista .productoCarrito__informacion__precio {
             font-size: 1.3rem;
             text-align: end; }
+      header .carrito .carrito__vista .botonConfirmar {
+        cursor: pointer;
+        border: solid #c600dc;
+        padding: 8px;
+        border-radius: 15px;
+        background-color: #551d5c;
+        font-size: 1.6rem; }
 
 * {
   margin: 0;

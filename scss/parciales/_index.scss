@@ -1,66 +1,59 @@
 .calculadora{
     display: grid;
     /*"area" column/ row*/
-    grid-template-areas: "busquedad busquedad busquedad busquedad"
-    "mod division borrar borrar"
-    "siete ocho nueve multiplicacion"
-    "cuatro cinco seis restar"
-    "uno dos tres sumar"
-    "neg cero coma igual";
-    grid-template-columns: repeat(4, 80px);
+    grid-template-areas: "busquedad busquedad busquedad busquedad busquedad"
+    "mod division borrarUno borrarTodo borrarTodo"
+    "parentesisAbierto siete ocho nueve multiplicacion"
+    "parentesisCerrado cuatro cinco seis restar"
+    "anterior uno dos tres sumar"
+    "md potencia cero punto igual";
+    grid-template-columns: repeat(5, 80px);
     grid-template-rows: 1fr repeat(5, 80px);
-    gap: 10px;
+    gap: 15px;
     background-color: #764aa1;
     border-radius: 5px;
-    padding: 20px;
-    width: 350px;
+    padding: 30px;
+    max-width: 450px;
     justify-content: center;
+    margin: 0 auto;
 
     .entradaDeDatos{
         grid-area: busquedad;
+        height: 35px;
         padding: 10px;
         border-radius: 4px;
         border: 1px solid transparent;
         background-color: #990026;
         color: white;
-        box-shadow: 6px 6px 10px -1px rgba(52, 13, 150, 0.15),
-            -6px -6px 10px -1px rgba(33, 198, 179, 0.7);
+        box-shadow: 6px 6px 10px -1px rgba(53, 2, 182, 0.15),
+            -6px -6px 10px -1px rgba(182, 45, 189, 0.7);
 
             &:focus{
-                background-color: #d60040;
+                background-color: #ae4162;
                 border: 1px solid transparent;
             }
     }
 
     .botonesCalculadora{
         cursor: pointer;
-        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         font-size: 4rem;
         text-decoration: none;
         border-radius: 5px;
         color: white;
         background-color: #990026;
-        box-shadow: 6px 6px 10px -1px rgba(0, 255, 203, 0.96), -6px -6px 10px -1px rgba(226, 30, 30, 0.1);
+        box-shadow: 6px 6px 10px -1px rgba(216, 35, 105, 0.96), -6px -6px 10px -1px rgba(226, 30, 30, 0.1);
+        font-size: 2rem;
 
         &:active{
-            background-color: #d60040;
-            box-shadow: 6px 6px 10px -1px rgba(52, 13, 150, 0.15),
-                -6px -6px 10px -1px rgba(33, 198, 179, 0.7);
+            background-color: #ae4162;
+            box-shadow: 6px 6px 10px -1px rgba(53, 2, 182, 0.15),
+            -6px -6px 10px -1px rgba(189, 45, 134, 0.7);
         }
     }
 
-}
-
-
-
-
-
-
-
-
-
-#f6{
-    grid-area: borrar;
 }
 
 #n1{
@@ -111,26 +104,61 @@
     grid-area: restar;
 }
 
-#f4{
-    grid-area: division;
-}
-
 #f3{
     grid-area: multiplicacion;
 }
 
-#f8{
-    grid-area: mod;
-}
-
-#f7{
-    grid-area: neg;
+#f4{
+    grid-area: division;
 }
 
 #f5{
     grid-area: igual;
 }
 
-#f9{
-    grid-area: coma;
+#f6{
+    grid-area: borrarTodo;
 }
+
+#f7{
+    grid-area: mod;
+}
+
+#f8{
+    grid-area: punto;
+}
+
+#f9{
+    grid-area: anterior;
+}
+
+#f10{
+    grid-area: parentesisAbierto;
+}
+
+#f11{
+    grid-area: parentesisCerrado;
+}
+
+#f12{
+    grid-area: md;
+}
+
+#f13{
+    grid-area: borrarUno;
+}
+
+#f14{
+    grid-area: potencia;
+}
+
+
+
+
+
+
+
+
+
+
+

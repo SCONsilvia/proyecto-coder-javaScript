@@ -42,28 +42,46 @@ header{
         text-decoration: none;
         font-size: 2rem;
         position: relative;
-        cursor: pointer;
+
+        .carrito__icono{
+            cursor: pointer;
+        }
 
         .carrito__vista{
-            background-color: rgb(160, 41, 181);
+            background-color: #610471;
             position: absolute;
             z-index: 1;
-            top: 110px;
-            left: 67px;
+            top: 104px;
+            left: 30px;
             border-radius: 10px;
-            padding: 10px;
+            padding: 15px;
             width: 400px;
+            max-height: 600px;
             visibility: hidden;
+            cursor: default;
+            overflow-y: auto;
 
             &__titulo{
                 font-size: 2rem;
                 margin-bottom: 1rem;
             }
 
+
+            .precioTotal{
+                margin-bottom: 25px;
+
+                .precioTotal__div{
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 10px;
+                    font-size: 1.5rem;
+                }
+            }
+
             .productoCarrito{
                 display: flex;
                 margin-bottom: 20px;
-                border: solid red;
+                border: solid #c600dc;
                 border-radius: 5px;
                 padding: 5px;
                 position: relative;
@@ -101,6 +119,15 @@ header{
                         text-align: end;
                     }
                 }
+            }
+
+            .botonConfirmar{
+                cursor: pointer;
+                border: solid #c600dc;
+                padding: 8px;
+                border-radius: 15px;
+                background-color: #551d5c;
+                font-size: 1.6rem;
             }
         }
     }
