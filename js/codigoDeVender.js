@@ -120,6 +120,7 @@ function dibujadoFiltro(){
 }
 
 function verDondeCae(tipo,array){
+    console.log(array);
     if(array[0] == "todo" && array.length != 1){
         let marcado = document.getElementById(`${tipo}0`);
         marcado.checked = false;
@@ -128,7 +129,8 @@ function verDondeCae(tipo,array){
         dibujadoFiltro();
     }else if(array.some((elemento) => elemento == "todo")){
         desmarcarTodo(tipo);
-        array = ["todo"];
+        array.splice(0,array.length-1);
+        /* array = ["todo"]; */
         divProductos.innerHTML = "";
         meterProducto(listaDeProductos);
     }else if(array.length == 0){
