@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!--libreria-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
     <!--Iconos-->
     <script src="https://kit.fontawesome.com/5e942a7bef.js" crossorigin="anonymous"></script>
@@ -49,7 +51,18 @@
                     </div>
                     <div class="productoCarrito__informacion">
                         <h2 class="productoCarrito__informacion__titulo">Calculadora Casio</h2>
-                        <p class="productoCarrito__informacion__precio">U$S5555</p>
+                        <div class="cantidadPrecio">
+                            <div class="cantidad">
+                                <a class="disminuirCantida flecha">
+                                    <i class="fa-solid fa-angle-left"></i>
+                                </a>
+                                <p>0</p>
+                                <a class="aumentarCantida flecha">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </a>
+                            </div>
+                            <p class="productoCarrito__informacion__precio">U$S5555</p>
+                        </div>
                     </div>
                 </div>
                 <div class="productoCarrito">
@@ -75,54 +88,54 @@
                     <div class="formulario__contenedor">
                         <p class="formulario__contenedor__titulo">Marca</p>
                         <div class="formulario__contenedor__item">
-                            <input type="checkbox" id="marca0"></input>
+                            <input type="checkbox" id="marca0" value="todo"></input>
                             <label for="marca0">Todo</label>
                         </div>
                         <div class="formulario__contenedor__item">
-                            <input type="checkbox" id="marca1"></input>
+                            <input type="checkbox" id="marca1" value="casio"></input>
                             <label for="marca1">Casio</label>
                         </div>
                         <div class="formulario__contenedor__item">
-                            <input type="checkbox" id="marca2"></input>
+                            <input type="checkbox" id="marca2" value="hp"></input>
                             <label for="marca2">HP</label>
                         </div>
                         <div class="formulario__contenedor__item">
-                            <input type="checkbox" id="marca3"></input>
+                            <input type="checkbox" id="marca3" value="canon"></input>
                             <label for="marca3">Canon</label>
                         </div>
                         <div class="formulario__contenedor__item">
-                            <input type="checkbox" id="marca4"></input>
+                            <input type="checkbox" id="marca4" value="olivetti"></input>
                             <label for="marca4">Olivetti</label>
                         </div>
                         <div class="formulario__contenedor__item">
-                            <input type="checkbox" id="marca5"></input>
+                            <input type="checkbox" id="marca5" value="ibico"></input>
                             <label for="marca5">Ibico</label>
                         </div>
                     </div>
                     <div class="formulario__contenedor">
                         <p class="formulario__contenedor__titulo">Tipo</p>
                         <div class="formulario__contenedor__item">
-                            <input type="checkbox" id="tipo0"></input>
+                            <input type="checkbox" id="tipo0" value="todo"></input>
                             <label for="tipo0">Todo</label>
                         </div>
                         <div class="formulario__contenedor__item">
-                            <input type="checkbox" id="tipo1"></input>
+                            <input type="checkbox" id="tipo1" value="bolsillo"></input>
                             <label for="tipo1">Bolsillo</label>
                         </div>
                         <div class="formulario__contenedor__item">
-                            <input type="checkbox" id="tipo2"></input>
+                            <input type="checkbox" id="tipo2" value="mesa"></input>
                             <label for="tipo2">Sobremesa</label>
                         </div>
                         <div class="formulario__contenedor__item">
-                            <input type="checkbox" id="tipo3"></input>
+                            <input type="checkbox" id="tipo3" value="cientifica"></input>
                             <label for="tipo3">Cientifica</label>
                         </div>
                         <div class="formulario__contenedor__item">
-                            <input type="checkbox" id="tipo4"></input>
+                            <input type="checkbox" id="tipo4" value="impresora integrada"></input>
                             <label for="tipo4">Con impresora integrada</label>
                         </div>
                         <div class="formulario__contenedor__item">
-                            <input type="checkbox" id="tipo5"></input>
+                            <input type="checkbox" id="tipo5" value = "solar"></input>
                             <label for="tipo5">Solar</label>
                         </div>
                     </div>
@@ -151,6 +164,8 @@
             </div>
         </div>
     </main>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="../js/codigoDeVender.js"></script>
+    
 </body>
 </html>

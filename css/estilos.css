@@ -299,9 +299,15 @@ header {
           justify-content: space-between; }
           header .carrito .carrito__vista .productoCarrito__informacion__titulo {
             font-size: 1.5rem; }
-          header .carrito .carrito__vista .productoCarrito__informacion__precio {
-            font-size: 1.3rem;
-            text-align: end; }
+          header .carrito .carrito__vista .productoCarrito__informacion .cantidadPrecio {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.3rem; }
+            header .carrito .carrito__vista .productoCarrito__informacion .cantidadPrecio .cantidad {
+              display: flex;
+              gap: 5px; }
+            header .carrito .carrito__vista .productoCarrito__informacion .cantidadPrecio .flecha {
+              cursor: pointer; }
       header .carrito .carrito__vista .botonConfirmar {
         cursor: pointer;
         border: solid #c600dc;

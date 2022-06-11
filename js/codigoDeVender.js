@@ -1,6 +1,7 @@
 const meterArray = (tipoProducto) => tipoProducto.split("/");
 let divProductos = document.getElementById("productos");
 let carrito = document.getElementsByClassName("carrito__icono");
+let carritoDeCompra;
 
 class productos{
     constructor(imagen,marca,titulo,precio,tipo,id){
@@ -39,20 +40,23 @@ function meterProducto(array){
     for(let elemento of array){
         let nuevoProducto = document.createElement("div");
         nuevoProducto.className = "producto";
+        //id = elemento.id
+        //{id,marca}=elemento desfracmentacion
+        let {imagen,id,marca,titulo,precio} = elemento;
         nuevoProducto.innerHTML = `
         <div class="contenedorImg">
-            <img src=${elemento.imagen}>
+            <img src=${imagen}>
         </div>
         <div class="linea">
-            <a class="botonAnadir" id="${elemento.id}">
+            <a class="botonAnadir" id="${id}">
                 <i class="fa-solid fa-cart-shopping"></i>
                 <p class="letrasAnadirAlCarrito">Anadir al carrito</p>
             </a>
         </div>
         <div class="producto__informacion">
-            <p class="producto__informacion__marca">${elemento.marca}</p>
-            <h2 class="producto__informacion__titulo">${elemento.titulo}</h2>
-            <p class="producto__informacion__precio">U$S${elemento.precio}</p>
+            <p class="producto__informacion__marca">${marca}</p>
+            <h2 class="producto__informacion__titulo">${titulo}</h2>
+            <p class="producto__informacion__precio">U$S${precio}</p>
             <a href="#" class="corazon">
                 <i class="fa-regular fa-heart"></i>
             </a>
@@ -65,58 +69,217 @@ function meterProducto(array){
     }
 }
 
-meterProducto(listaDeProductos);
+/* meterProducto(listaDeProductos); */
+
+let arrayMarca = [];
+let arrayTipo = [];
+
+function desmarcarTodo(valor){
+    for(let i = 1; i < 6; i++){
+        let marcado = document.getElementById(`${valor}${i}`);
+        marcado.checked = false;
+    }
+}
+
+function verCondicion(unElemento,elemento,tipo){
+    return tipo=="marca" ? (unElemento.marca.toLowerCase() == elemento):(unElemento.tipo.some((elementoDelArray) => elementoDelArray == elemento))
+}
+
+function nuevoArr(tipo,array){
+    let nuevoArr = [];
+    for(let elemento of array){
+        nuevo = listaDeProductos.filter((unElemento) => verCondicion(unElemento,elemento,tipo));
+        nuevoArr = nuevoArr.concat(nuevo);
+    }
+    return nuevoArr
+}
+
+function dibujadoFiltro(){
+    let array1 = [];
+    let array2 = [];
+    let array3 = [];
+    if(arrayMarca.length != 0){
+        array1 = nuevoArr("marca",arrayMarca);
+        array3 = array1;
+    }
+    if(arrayTipo.length != 0){
+        array2 = nuevoArr("tipo",arrayTipo);
+        array3 = array2;
+    }
+    if(arrayMarca.length != 0 && arrayMarca.length != 0){
+        array3 = array2;
+        //evitando repetidos
+        for(let e of array1){
+            if(!(array2.some((elemet) => elemet == e))){
+                array3.push(e);
+            }
+        }
+    }
+    divProductos.innerHTML = "";
+    meterProducto(array3);
+}
+
+function verDondeCae(tipo,array){
+    if(array[0] == "todo" && array.length != 1){
+        let marcado = document.getElementById(`${tipo}0`);
+        marcado.checked = false;
+        array.shift();
+        /* nuevoArr(tipo,array); */
+        dibujadoFiltro();
+    }else if(array.some((elemento) => elemento == "todo")){
+        desmarcarTodo(tipo);
+        array = ["todo"];
+        divProductos.innerHTML = "";
+        meterProducto(listaDeProductos);
+    }else if(array.length == 0){
+        meterProducto(listaDeProductos);
+    }else{
+        dibujadoFiltro();
+        /* nuevoArr(tipo,array); */
+    }
+    let botonAgregarAlCarrito = document.getElementsByClassName("botonAnadir");
+
+    for(let elemento of botonAgregarAlCarrito){
+        elemento.addEventListener("click", () => {carritoDeCompra.botonAnadirAlCarrito(elemento.id)});
+    }
+}
+
+function filtradoLista(tipo,array){
+    for(let i = 0; i < 6; i++){
+        let marcado = document.getElementById(`${tipo}${i}`);
+        marcado.onclick = () => {
+            if (marcado.checked){
+                array.push(marcado.value);
+                verDondeCae(tipo,array);
+            }else{
+                let indice = array.indexOf(marcado.value);//agarrar el indice
+                array.splice(indice,1);//eliminar del arreglo
+                verDondeCae(tipo,array);
+            }
+        };
+        if(array.length == 0){
+            verDondeCae(tipo,array);
+        }
+    }
+}
+
+filtradoLista("marca",arrayMarca);
+filtradoLista("tipo",arrayTipo);
 
 /*Ocultar o mostrar el carrito de compra*/
 carrito[0].addEventListener("click",()=>{
     let vistaCarrito = document.getElementsByClassName("carrito__vista");
-    if(vistaCarrito[0].style.visibility != "visible"){
-        vistaCarrito[0].style.visibility = "visible";
-    }else{
-        vistaCarrito[0].style.visibility = "hidden";
-    }
+    /* expresion ? si : no */
+    vistaCarrito[0].style.visibility = vistaCarrito[0].style.visibility != "visible"? "visible": "hidden";
 })
 
 class CarritoDeCompra{
-    constructor(arrayDelStorage){
+    constructor(arrayDelStorage, arrayDelStorageCantidad){
         this.productos = [];
         this.subTotal = 0;
-        this.mostraProductosEnElCarrito(arrayDelStorage);
+        this.cantidad = [];
+        this.mostraProductosEnElCarrito(arrayDelStorage,arrayDelStorageCantidad);
     }
 
-    mostraProductosEnElCarrito(arrayDelStorage){
+    mostraProductosEnElCarrito(arrayDelStorage,arrayDelStorageCantidad){
+      /*   let i = 0; */
+        let j = 0;
         for(let producto of arrayDelStorage){
-            this.agregarAlCarrito(producto);
+            for(let i = 0; i < arrayDelStorageCantidad[j]; i++){
+                this.agregarAlCarrito(producto);
+            }
+            j++;
         }
     }
 
-    agregarAlCarrito(id){
-        let listaCarrito = document.getElementById("productosCarrito");
-        let elementoDeLaListaDeProductos = listaDeProductos[parseInt(id) - 1];
-        let productoAgregado = document.createElement("div");
-        productoAgregado.className = "productoCarrito";
-        productoAgregado.id = id;
-        productoAgregado.innerHTML = `
-        <a class="quitarProducto" id="elemento${id}">
-            <i class="fa-solid fa-circle-xmark"></i>
-        </a>
-        <div class="contenedorImagenCarrito">
-            <img src="${elementoDeLaListaDeProductos.imagen}">
-        </div>
-        <div class="productoCarrito__informacion">
-            <h2 class="productoCarrito__informacion__titulo">${elementoDeLaListaDeProductos.titulo}</h2>
-            <p class="productoCarrito__informacion__precio">${elementoDeLaListaDeProductos.precio}</p>
-        </div>`
-        listaCarrito.appendChild(productoAgregado);
-        /*Agregando de una vez el escuchado para el boton eliminar producto del carrito*/
-        let elementoAEliminar = document.getElementById(`elemento${id}`)
-        elementoAEliminar.addEventListener("click", () => {this.eliminar(productoAgregado)});
+    mensaje(mensaje){
+        Toastify({
+            text: mensaje,
+            duration: 1000,
+            gravity: "bottom", 
+            position: "right", 
+            style: {
+              background: "linear-gradient(to right, rgb(138 0 176), rgb(201 61 127))",
+            }
+          }).showToast();
+    }
 
+    aumentarODisminuir(id,index,opcion){
+        let cantidad = document.getElementById(`cantidadDeProducto${id}`);
+        let precio = listaDeProductos.find((elemento) => elemento.id == id).precio;
+        this.cantidad[index] += opcion;
+        if(this.cantidad[index] == 0){
+            let elementoAEliminar = document.getElementById(`c${id}`);
+            this.eliminar(elementoAEliminar);
+        }else{
+            cantidad.innerHTML = this.cantidad[index];
+            /*Ajustando los precios*/
+            let productoPrecio = document.getElementById(`cp${id}`);
+            let productoNuevoPrecio = parseFloat(productoPrecio.textContent) + (precio * opcion);
+            productoPrecio.innerHTML = productoNuevoPrecio.toFixed(2);
+        }
+        this.calcularYPintarSubtotal(precio * opcion)
+    }
 
-        this.subTotal += elementoDeLaListaDeProductos.precio;
+    calcularYPintarSubtotal(valor){
+        this.subTotal += (valor);
         let subTotal = document.getElementById("subTotal");
-        subTotal.innerHTML = this.subTotal;
-        this.productos.push(id);
+        if (this.subTotal < 0){
+            this.subTotal = 0
+        }
+        subTotal.innerHTML = this.subTotal.toFixed(2);
+    }
+
+    agregarAlCarrito(id){
+        let cantidadBusquedaIndice = this.productos.findIndex((elemento) => elemento == id)
+        if(cantidadBusquedaIndice != -1){
+            this.aumentarODisminuir(id,cantidadBusquedaIndice,+1);
+        }else{
+
+        
+            let listaCarrito = document.getElementById("productosCarrito");
+            let elementoDeLaListaDeProductos = listaDeProductos[parseInt(id) - 1];
+            let productoAgregado = document.createElement("div");
+            productoAgregado.className = "productoCarrito";
+            productoAgregado.id = `c${id}`;
+            productoAgregado.innerHTML = `
+            <a class="quitarProducto" id="elemento${id}">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </a>
+            <div class="contenedorImagenCarrito">
+                <img src="${elementoDeLaListaDeProductos.imagen}">
+            </div>
+            <div class="productoCarrito__informacion">
+                <h2 class="productoCarrito__informacion__titulo">${elementoDeLaListaDeProductos.titulo}</h2>
+                <div class="cantidadPrecio">
+                    <div class="cantidad">
+                        <a class="disminuirCantida flecha${id}">
+                            <i class="fa-solid fa-angle-left"></i>
+                        </a>
+                        <p id="cantidadDeProducto${elementoDeLaListaDeProductos.id}">1</p>
+                        <a class="aumentarCantida flecha${id}">
+                            <i class="fa-solid fa-angle-right"></i>
+                        </a>
+                    </div>
+                    <p class="productoCarrito__informacion__precio" id = "cp${id}">${elementoDeLaListaDeProductos.precio}</p>
+                </div>
+            </div>`
+            listaCarrito.appendChild(productoAgregado);
+            /*Agregando cantidad en el array*/
+            this.cantidad.push(1);
+            /*Agregando el escuchado para los botones aumentar cantidad y disminuir */
+            let aumentarCantida = document.getElementsByClassName(`flecha${id}`);
+            aumentarCantida[1].addEventListener("click", () => {this.flechasDelCarrito(id, this.productos.findIndex((elemento) => elemento == id),+1)});
+            aumentarCantida[0].addEventListener("click", () => {this.flechasDelCarrito(id, this.productos.findIndex((elemento) => elemento == id),-1)});
+            /*Agregando de una vez el escuchado para el boton eliminar producto del carrito*/
+            let elementoAEliminar = document.getElementById(`elemento${id}`)
+            elementoAEliminar.addEventListener("click", () => {this.eliminarDelCarrito(productoAgregado)});
+
+            this.calcularYPintarSubtotal(elementoDeLaListaDeProductos.precio);
+            this.productos.push(id);
+
+
+        }
     }
 
     eliminar(elemetoAEliminar){
@@ -126,13 +289,32 @@ class CarritoDeCompra{
 
         /*restar al subtotal */
         let elemento = elemetoAEliminar.id;
+        elemento = elemento.slice(1);//te da un segmento del arreglo desde la posicion que tu digas hasta una cantidad de elementos
         let valor = listaDeProductos[parseInt(elemento) - 1].precio;
-        this.subTotal += -valor;
-        let subTotal = document.getElementById("subTotal");
-        subTotal.innerHTML = this.subTotal;
 
         let arrayElementoAEliminar = this.productos.indexOf(elemento);/*Me busca el elemento y me devuelve la pocision en el array */
+        this.calcularYPintarSubtotal(-valor * this.cantidad[arrayElementoAEliminar])
+
         this.productos.splice(arrayElementoAEliminar,1)/*borra desde la pocision que yo le de un numero de cantidad de elementos */
+        this.cantidad.splice(arrayElementoAEliminar,1)
+    }
+    eliminarDelCarrito(productoAgregado) {
+        let cantidad = productoAgregado.id.slice(1);
+        let pocision = this.productos.indexOf(cantidad);
+        let mensaje = this.cantidad[pocision] == 1? "Eliminaste un producto": `Eliminaste ${this.cantidad[pocision]} productos`
+        this.eliminar(productoAgregado);
+        this.mensaje(mensaje);
+    }
+
+    flechasDelCarrito(id,index,opcion) {
+        this.aumentarODisminuir(id, index, opcion);
+        let mensaje = opcion == 1 ? "Agregaste un producto": "Eliminaste un producto";
+        this.mensaje(mensaje);
+    }
+
+    botonAnadirAlCarrito(id) {
+        this.agregarAlCarrito(id);
+        this.mensaje("Agregaste un producto");
     }
 }
 
@@ -140,20 +322,23 @@ function cargarAlCarrito(){
     let arrayDeProductosSacadoDelStorage
     if(localStorage.getItem("productos")){
         arrayDeProductosSacadoDelStorage = JSON.parse(localStorage.getItem("productos"));
+        arrayDeCantidadSacadoDelStorage = JSON.parse(localStorage.getItem("cantidad"));
     }else{
         arrayDeProductosSacadoDelStorage = [];
+        arrayDeCantidadSacadoDelStorage = [];
     }
-    let carritoDeCompra = new CarritoDeCompra(arrayDeProductosSacadoDelStorage);
+    carritoDeCompra = new CarritoDeCompra(arrayDeProductosSacadoDelStorage,arrayDeCantidadSacadoDelStorage);
 
     let botonAgregarAlCarrito = document.getElementsByClassName("botonAnadir");
 
     for(let elemento of botonAgregarAlCarrito){
-        elemento.addEventListener("click", () => {carritoDeCompra.agregarAlCarrito(elemento.id)});
+        elemento.addEventListener("click", () => {carritoDeCompra.botonAnadirAlCarrito(elemento.id)});
     }
 
     /*GUARDAR EN EL STORAGE CUANDO SALE DE LA PANTALLA */
     window.addEventListener("beforeunload", function (event) {
         localStorage.setItem("productos", JSON.stringify(carritoDeCompra.productos));
+        localStorage.setItem("cantidad", JSON.stringify(carritoDeCompra.cantidad));
     });
 }
 

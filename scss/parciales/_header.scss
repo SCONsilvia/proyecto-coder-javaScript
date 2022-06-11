@@ -114,9 +114,19 @@ header{
                         font-size: 1.5rem;
                     }
 
-                    &__precio{
+                    .cantidadPrecio{
+                        display: flex;
+                        justify-content: space-between;
                         font-size: 1.3rem;
-                        text-align: end;
+
+                        .cantidad{
+                            display: flex;
+                            gap: 5px;
+                        }
+
+                        .flecha{
+                            cursor: pointer;
+                        }
                     }
                 }
             }

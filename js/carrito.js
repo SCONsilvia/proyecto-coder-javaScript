@@ -36,56 +36,121 @@ const listaDeProductos = [
     new productos("imagenes/Calculator-bro.png","Casio","Casio FX 260 Solar II",56.08,meterArray("cientifica/solar"),18), 
 ];
 
+
 /*Ocultar o mostrar el carrito de compra*/
 carrito[0].addEventListener("click",()=>{
     let vistaCarrito = document.getElementsByClassName("carrito__vista");
-    if(vistaCarrito[0].style.visibility != "visible"){
-        vistaCarrito[0].style.visibility = "visible";
-    }else{
-        vistaCarrito[0].style.visibility = "hidden";
-    }
+    /* expresion ? si : no */
+    vistaCarrito[0].style.visibility = vistaCarrito[0].style.visibility != "visible"? "visible": "hidden";
 })
 
 class CarritoDeCompra{
-    constructor(arrayDelStorage){
+    constructor(arrayDelStorage, arrayDelStorageCantidad){
         this.productos = [];
         this.subTotal = 0;
-        this.mostraProductosEnElCarrito(arrayDelStorage);
+        this.cantidad = [];
+        this.mostraProductosEnElCarrito(arrayDelStorage,arrayDelStorageCantidad);
     }
 
-    mostraProductosEnElCarrito(arrayDelStorage){
+    mostraProductosEnElCarrito(arrayDelStorage,arrayDelStorageCantidad){
+      /*   let i = 0; */
+        let j = 0;
         for(let producto of arrayDelStorage){
-            this.agregarAlCarrito(producto);
+            for(let i = 0; i < arrayDelStorageCantidad[j]; i++){
+                this.agregarAlCarrito(producto);
+            }
+            j++;
         }
     }
 
-    agregarAlCarrito(id){
-        let listaCarrito = document.getElementById("productosCarrito");
-        let elementoDeLaListaDeProductos = listaDeProductos[parseInt(id) - 1];
-        let productoAgregado = document.createElement("div");
-        productoAgregado.className = "productoCarrito";
-        productoAgregado.id = id;
-        productoAgregado.innerHTML = `
-        <a class="quitarProducto" id="elemento${id}">
-            <i class="fa-solid fa-circle-xmark"></i>
-        </a>
-        <div class="contenedorImagenCarrito">
-            <img src="${elementoDeLaListaDeProductos.imagen}">
-        </div>
-        <div class="productoCarrito__informacion">
-            <h2 class="productoCarrito__informacion__titulo">${elementoDeLaListaDeProductos.titulo}</h2>
-            <p class="productoCarrito__informacion__precio">${elementoDeLaListaDeProductos.precio}</p>
-        </div>`
-        listaCarrito.appendChild(productoAgregado);
-        /*Agregando de una vez el escuchado para el boton eliminar producto del carrito*/
-        let elementoAEliminar = document.getElementById(`elemento${id}`)
-        elementoAEliminar.addEventListener("click", () => {this.eliminar(productoAgregado)});
+    mensaje(mensaje){
+        Toastify({
+            text: mensaje,
+            duration: 1000,
+            gravity: "bottom", 
+            position: "right", 
+            style: {
+              background: "linear-gradient(to right, rgb(138 0 176), rgb(201 61 127))",
+            }
+          }).showToast();
+    }
 
+    aumentarODisminuir(id,index,opcion){
+        let cantidad = document.getElementById(`cantidadDeProducto${id}`);
+        let precio = listaDeProductos.find((elemento) => elemento.id == id).precio;
+        this.cantidad[index] += opcion;
+        if(this.cantidad[index] == 0){
+            let elementoAEliminar = document.getElementById(`c${id}`);
+            this.eliminar(elementoAEliminar);
+        }else{
+            cantidad.innerHTML = this.cantidad[index];
+            /*Ajustando los precios*/
+            let productoPrecio = document.getElementById(`cp${id}`);
+            let productoNuevoPrecio = parseFloat(productoPrecio.textContent) + (precio * opcion);
+            productoPrecio.innerHTML = productoNuevoPrecio.toFixed(2);
+        }
+        this.calcularYPintarSubtotal(precio * opcion)
+    }
 
-        this.subTotal += elementoDeLaListaDeProductos.precio;
+    calcularYPintarSubtotal(valor){
+        this.subTotal += (valor);
         let subTotal = document.getElementById("subTotal");
-        subTotal.innerHTML = this.subTotal;
-        this.productos.push(id);
+        if (this.subTotal < 0){
+            this.subTotal = 0
+        }
+        subTotal.innerHTML = this.subTotal.toFixed(2);
+    }
+
+    agregarAlCarrito(id){
+        let cantidadBusquedaIndice = this.productos.findIndex((elemento) => elemento == id)
+        if(cantidadBusquedaIndice != -1){
+            this.aumentarODisminuir(id,cantidadBusquedaIndice,+1);
+        }else{
+
+        
+            let listaCarrito = document.getElementById("productosCarrito");
+            let elementoDeLaListaDeProductos = listaDeProductos[parseInt(id) - 1];
+            let productoAgregado = document.createElement("div");
+            productoAgregado.className = "productoCarrito";
+            productoAgregado.id = `c${id}`;
+            productoAgregado.innerHTML = `
+            <a class="quitarProducto" id="elemento${id}">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </a>
+            <div class="contenedorImagenCarrito">
+                <img src="${elementoDeLaListaDeProductos.imagen}">
+            </div>
+            <div class="productoCarrito__informacion">
+                <h2 class="productoCarrito__informacion__titulo">${elementoDeLaListaDeProductos.titulo}</h2>
+                <div class="cantidadPrecio">
+                    <div class="cantidad">
+                        <a class="disminuirCantida flecha${id}">
+                            <i class="fa-solid fa-angle-left"></i>
+                        </a>
+                        <p id="cantidadDeProducto${elementoDeLaListaDeProductos.id}">1</p>
+                        <a class="aumentarCantida flecha${id}">
+                            <i class="fa-solid fa-angle-right"></i>
+                        </a>
+                    </div>
+                    <p class="productoCarrito__informacion__precio" id = "cp${id}">${elementoDeLaListaDeProductos.precio}</p>
+                </div>
+            </div>`
+            listaCarrito.appendChild(productoAgregado);
+            /*Agregando cantidad en el array*/
+            this.cantidad.push(1);
+            /*Agregando el escuchado para los botones aumentar cantidad y disminuir */
+            let aumentarCantida = document.getElementsByClassName(`flecha${id}`);
+            aumentarCantida[1].addEventListener("click", () => {this.flechasDelCarrito(id, this.productos.findIndex((elemento) => elemento == id),+1)});
+            aumentarCantida[0].addEventListener("click", () => {this.flechasDelCarrito(id, this.productos.findIndex((elemento) => elemento == id),-1)});
+            /*Agregando de una vez el escuchado para el boton eliminar producto del carrito*/
+            let elementoAEliminar = document.getElementById(`elemento${id}`)
+            elementoAEliminar.addEventListener("click", () => {this.eliminarDelCarrito(productoAgregado)});
+
+            this.calcularYPintarSubtotal(elementoDeLaListaDeProductos.precio);
+            this.productos.push(id);
+
+
+        }
     }
 
     eliminar(elemetoAEliminar){
@@ -95,13 +160,32 @@ class CarritoDeCompra{
 
         /*restar al subtotal */
         let elemento = elemetoAEliminar.id;
+        elemento = elemento.slice(1);//te da un segmento del arreglo desde la posicion que tu digas hasta una cantidad de elementos
         let valor = listaDeProductos[parseInt(elemento) - 1].precio;
-        this.subTotal += -valor;
-        let subTotal = document.getElementById("subTotal");
-        subTotal.innerHTML = this.subTotal;
 
         let arrayElementoAEliminar = this.productos.indexOf(elemento);/*Me busca el elemento y me devuelve la pocision en el array */
+        this.calcularYPintarSubtotal(-valor * this.cantidad[arrayElementoAEliminar])
+
         this.productos.splice(arrayElementoAEliminar,1)/*borra desde la pocision que yo le de un numero de cantidad de elementos */
+        this.cantidad.splice(arrayElementoAEliminar,1)
+    }
+    eliminarDelCarrito(productoAgregado) {
+        let cantidad = productoAgregado.id.slice(1);
+        let pocision = this.productos.indexOf(cantidad);
+        let mensaje = this.cantidad[pocision] == 1? "Eliminaste un producto": `Eliminaste ${this.cantidad[pocision]} productos`
+        this.eliminar(productoAgregado);
+        this.mensaje(mensaje);
+    }
+
+    flechasDelCarrito(id,index,opcion) {
+        this.aumentarODisminuir(id, index, opcion);
+        let mensaje = opcion == 1 ? "Agregaste un producto": "Eliminaste un producto";
+        this.mensaje(mensaje);
+    }
+
+    botonAnadirAlCarrito(id) {
+        this.agregarAlCarrito(id);
+        this.mensaje("Agregaste un producto");
     }
 }
 
@@ -109,20 +193,23 @@ function cargarAlCarrito(){
     let arrayDeProductosSacadoDelStorage
     if(localStorage.getItem("productos")){
         arrayDeProductosSacadoDelStorage = JSON.parse(localStorage.getItem("productos"));
+        arrayDeCantidadSacadoDelStorage = JSON.parse(localStorage.getItem("cantidad"));
     }else{
         arrayDeProductosSacadoDelStorage = [];
+        arrayDeCantidadSacadoDelStorage = [];
     }
-    let carritoDeCompra = new CarritoDeCompra(arrayDeProductosSacadoDelStorage);
+    let carritoDeCompra = new CarritoDeCompra(arrayDeProductosSacadoDelStorage,arrayDeCantidadSacadoDelStorage);
 
     let botonAgregarAlCarrito = document.getElementsByClassName("botonAnadir");
 
     for(let elemento of botonAgregarAlCarrito){
-        elemento.addEventListener("click", () => {carritoDeCompra.agregarAlCarrito(elemento.id)});
+        elemento.addEventListener("click", () => {carritoDeCompra.botonAnadirAlCarrito(elemento.id)});
     }
 
     /*GUARDAR EN EL STORAGE CUANDO SALE DE LA PANTALLA */
     window.addEventListener("beforeunload", function (event) {
         localStorage.setItem("productos", JSON.stringify(carritoDeCompra.productos));
+        localStorage.setItem("cantidad", JSON.stringify(carritoDeCompra.cantidad));
     });
 }
 

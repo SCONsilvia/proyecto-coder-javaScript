@@ -56,9 +56,8 @@ function miPropioSplit(arrayAPicar, arrayDePicacion){
             numero += arrayAPicar[elemento];
         }
     }
-    if (numero != ""){
-        array.push(numero);
-    }
+    /* expresion && lo que va a pasar*/
+    numero != "" && array.push(numero);
     return array
 }
 
