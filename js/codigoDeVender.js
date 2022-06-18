@@ -13,8 +13,38 @@ class productos{
         this.id = id;
     }
 }
+let listaDeProductos;
+/* async function traerDatos(){
+    const listaDeProductosguevo = [];
+    let d,j
+    return fetch('https://sconsilvia.github.io/proyecto-coder-javaScript/datos.json') //const hola = await fetch('https://sconsilvia.github.io/proyecto-coder-javaScript/datos.json');
+    // Exito
+    .then(response => response.json())  // convertir a json const dato = await hola.json();
+    .then(json => {
+        console.log(json.length);
+        for(let i = 0; i < json.length; i++){
+            listaDeProductosguevo.push(new productos(json[i].imagen,json[i].marca,json[i].titulo,json[i].precio,json[i].tipo,json[i].id))
+        }
+        console.log("guevo"+listaDeProductosguevo)
+        resolve(listaDeProductosguevo)
+        reject("Rejected")
+    })    //imprimir los datos en la consola
+    .catch(function(error){
+        reject("Rejected")
+    }); // Capturar errores
+} */
 
-const listaDeProductos = [
+async function traerDatos(){
+    const listaDeProductosguevo = [];
+    let d,j
+    const buscar = await fetch('https://sconsilvia.github.io/proyecto-coder-javaScript/datos.json') //const hola = await fetch('https://sconsilvia.github.io/proyecto-coder-javaScript/datos.json');
+    return await buscar.json()
+    
+}
+
+
+
+/* const listaDeProductos = [
     new productos("../imagenes/Calculator-bro.png","Casio","Casio FX-991SPX II",32.89,meterArray("cientifica"),1), 
     new productos("../imagenes/Calculator-bro.png","Casio","Casio FX-82MS",16.80,meterArray("cientifica"),2), 
     new productos("../imagenes/Calculator-amico.png","Canon","Canon MP1211-LTSC",76.06,meterArray("impresora integrada"),3),
@@ -33,7 +63,7 @@ const listaDeProductos = [
     new productos("../imagenes/Calculator-bro.png","Hp","HP 50g",321.00,meterArray("cientifica/grafica"),16),
     new productos("../imagenes/Calculator-pana.png","Casio","Casio FX-9750gIII",56.08,meterArray("cientifica/grafica/solar"),17), 
     new productos("../imagenes/Calculator-pana.png","Casio","Casio FX 260 Solar II",56.08,meterArray("cientifica/solar"),18), 
-];
+]; */
 
 /*Dibujar los productos en el html*/
 function meterProducto(array){
@@ -168,8 +198,6 @@ function filtradoLista(tipo,array){
     }
 }
 
-filtradoLista("marca",arrayMarca);
-filtradoLista("tipo",arrayTipo);
 
 /*Ocultar o mostrar el carrito de compra*/
 carrito[0].addEventListener("click",()=>{
@@ -227,7 +255,9 @@ class CarritoDeCompra{
     }
 
     calcularYPintarSubtotal(valor){
-        this.subTotal += (valor);
+        console.log(valor)
+        console.log(this.subTotal )
+        this.subTotal += valor;
         let subTotal = document.getElementById("subTotal");
         if (this.subTotal < 0){
             this.subTotal = 0
@@ -348,5 +378,18 @@ function cargarAlCarrito(){
 }
 
 /* Cuando se cargue el navegador ejecuta esto */
-window.onload = cargarAlCarrito();
 
+
+
+function inicializarTodaVaina(){
+    filtradoLista("marca",arrayMarca);
+    filtradoLista("tipo",arrayTipo);
+    window.onload = cargarAlCarrito();
+
+}
+
+traerDatos().then(function(listaguevo){
+    console.log("estoy aqui"+listaguevo)
+    listaDeProductos = listaguevo
+    inicializarTodaVaina()
+});
