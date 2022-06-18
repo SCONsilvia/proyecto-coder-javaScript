@@ -1,3 +1,9 @@
+.titulo{
+    text-align: center;
+    margin: 10px;
+    font-size: 3rem;
+}
+
 .calculadora{
     display: grid;
     /*"area" column/ row*/
@@ -46,6 +52,7 @@
         background-color: #990026;
         box-shadow: 6px 6px 10px -1px rgba(216, 35, 105, 0.96), -6px -6px 10px -1px rgba(226, 30, 30, 0.1);
         font-size: 2rem;
+        border: none;
 
         &:active{
             background-color: #ae4162;

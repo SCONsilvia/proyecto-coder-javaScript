@@ -17,22 +17,22 @@ class productos{
 const listaDeProductos = [
     new productos("../imagenes/Calculator-bro.png","Casio","Casio FX-991SPX II",32.89,meterArray("cientifica"),1), 
     new productos("../imagenes/Calculator-bro.png","Casio","Casio FX-82MS",16.80,meterArray("cientifica"),2), 
-    new productos("../imagenes/Calculator-bro.png","Canon","Canon MP1211-LTSC",76.06,meterArray("impresora integrada"),3),
-    new productos("../imagenes/Calculator-bro.png","Casio","Casio FR-2650",50.08,meterArray("impresora integrada"),4),
-    new productos("../imagenes/Calculator-bro.png","Canon","Canon TX-220TSII",15.00,meterArray("estandar"),5),
-    new productos("../imagenes/Calculator-bro.png","Casio","Casio HL-815",9.37,meterArray("bolsillo"),6),
-    new productos("../imagenes/Calculator-bro.png","Olivetti","Olivetti Logos 902",79.00,meterArray("impresora integrada"),7),
-    new productos("../imagenes/Calculator-bro.png","Olivetti","Olivetti Summa 60",40.00,meterArray("mesa"),8),
-    new productos("../imagenes/Calculator-bro.png","Olivetti","Olivetti Summa 301",15.05,meterArray("impresora integrada/bolsillo"),9),
-    new productos("../imagenes/Calculator-bro.png","Casio","Casio FX 260 Solar II",16.80,meterArray("cientifica/solar"),10), 
+    new productos("../imagenes/Calculator-amico.png","Canon","Canon MP1211-LTSC",76.06,meterArray("impresora integrada"),3),
+    new productos("../imagenes/Calculator-amico.png","Casio","Casio FR-2650",50.08,meterArray("impresora integrada"),4),
+    new productos("../imagenes/Calculator-cuate.png","Canon","Canon Ts1200tsc",15.00,meterArray("mesa"),5),
+    new productos("../imagenes/Calculator-rafiki.png","Casio","Casio HL-815",9.37,meterArray("bolsillo"),6),
+    new productos("../imagenes/Calculator-amico.png","Olivetti","Olivetti Logos 902",79.00,meterArray("impresora integrada"),7),
+    new productos("../imagenes/Calculator-cuate.png","Olivetti","Olivetti Summa 60",40.00,meterArray("mesa"),8),
+    new productos("../imagenes/Calculator-amico.png","Olivetti","Olivetti Summa 301",15.05,meterArray("impresora integrada/bolsillo"),9),
+    new productos("../imagenes/Calculator-pana.png","Casio","Casio FX 260 Solar II",16.80,meterArray("cientifica/solar"),10), 
     new productos("../imagenes/Calculator-bro.png","Casio","CASIO PRIZM FX-CG50",80.99,meterArray("cientifica/grafica"),11), 
-    new productos("../imagenes/Calculator-bro.png","Ibico","Ibico 081X",15.99,meterArray("bolsillo/estandar"),12), 
-    new productos("../imagenes/Calculator-bro.png","Ibico","Ibico 212X",23.78,meterArray("mesa"),13), 
-    new productos("../imagenes/Calculator-bro.png","Ibico","Ibico 1491X",83.78,meterArray("impresora integrada"),14),
+    new productos("../imagenes/Calculator-rafiki.png","Ibico","Ibico 081X",15.99,meterArray("bolsillo"),12), 
+    new productos("../imagenes/Calculator-cuate.png","Ibico","Ibico 212X",23.78,meterArray("mesa"),13), 
+    new productos("../imagenes/Calculator-amico.png","Ibico","Ibico 1491X",83.78,meterArray("impresora integrada"),14),
     new productos("../imagenes/Calculator-bro.png","Hp","HP 2AP18AA#ABA",129.00,meterArray("cientifica/grafica"),15), 
     new productos("../imagenes/Calculator-bro.png","Hp","HP 50g",321.00,meterArray("cientifica/grafica"),16),
-    new productos("../imagenes/Calculator-bro.png","Casio","Casio FX-9750gIII",56.08,meterArray("cientifica/grafica/solar"),17), 
-    new productos("../imagenes/Calculator-bro.png","Casio","Casio FX 260 Solar II",56.08,meterArray("cientifica/solar"),18), 
+    new productos("../imagenes/Calculator-pana.png","Casio","Casio FX-9750gIII",56.08,meterArray("cientifica/grafica/solar"),17), 
+    new productos("../imagenes/Calculator-pana.png","Casio","Casio FX 260 Solar II",56.08,meterArray("cientifica/solar"),18), 
 ];
 
 /*Dibujar los productos en el html*/
@@ -69,11 +69,12 @@ function meterProducto(array){
     }
 }
 
-/* meterProducto(listaDeProductos); */
+/*Haciendo Funcionar los filtros*/
 
 let arrayMarca = [];
 let arrayTipo = [];
 
+//desmarca todos los check menos el check TODO
 function desmarcarTodo(valor){
     for(let i = 1; i < 6; i++){
         let marcado = document.getElementById(`${valor}${i}`);
@@ -85,6 +86,7 @@ function verCondicion(unElemento,elemento,tipo){
     return tipo=="marca" ? (unElemento.marca.toLowerCase() == elemento):(unElemento.tipo.some((elementoDelArray) => elementoDelArray == elemento))
 }
 
+//busca y devuelve el producto entrero de lista de productos
 function nuevoArr(tipo,array){
     let nuevoArr = [];
     for(let elemento of array){
@@ -94,6 +96,7 @@ function nuevoArr(tipo,array){
     return nuevoArr
 }
 
+//ver si el filtro marca y el filtro tipo estan llenos y los une
 function dibujadoFiltro(){
     let array1 = [];
     let array2 = [];
@@ -119,26 +122,25 @@ function dibujadoFiltro(){
     meterProducto(array3);
 }
 
+//Ve si el check TODO esta marcado o si esta marcado otra check o si ningun check esta marcado
 function verDondeCae(tipo,array){
-    console.log(array);
-    if(array[0] == "todo" && array.length != 1){
+    if(array[0] == "todo" && array.length != 1){//si TODO estaba marcado y luego se seleciona otra opcion se desmarca TODO
         let marcado = document.getElementById(`${tipo}0`);
         marcado.checked = false;
         array.shift();
-        /* nuevoArr(tipo,array); */
         dibujadoFiltro();
-    }else if(array.some((elemento) => elemento == "todo")){
+    }else if(array.some((elemento) => elemento == "todo")){//si esta hay varios check marcados y luego se marca el check TODO
         desmarcarTodo(tipo);
-        array.splice(0,array.length-1);
-        /* array = ["todo"]; */
+        array.splice(0,array.length-1);//borrar todo lo del array excepto la ultima posicion
+        divProductos.innerHTML = "";//limpia todo el html pues si no se repiten las cosas
+        meterProducto(listaDeProductos); //mete todos los productos de nuevo
+    }else if(arrayMarca.length == 0 && arrayTipo.length == 0){//si todos los filtros estan desmarcado
         divProductos.innerHTML = "";
-        meterProducto(listaDeProductos);
-    }else if(array.length == 0){
         meterProducto(listaDeProductos);
     }else{
         dibujadoFiltro();
-        /* nuevoArr(tipo,array); */
     }
+    //volvemos a a;adir el addEventListener para agregar al carrito
     let botonAgregarAlCarrito = document.getElementsByClassName("botonAnadir");
 
     for(let elemento of botonAgregarAlCarrito){
@@ -146,6 +148,7 @@ function verDondeCae(tipo,array){
     }
 }
 
+//pone el onclick a los check de los filtros, los id son marca1 marca2 etc
 function filtradoLista(tipo,array){
     for(let i = 0; i < 6; i++){
         let marcado = document.getElementById(`${tipo}${i}`);
@@ -154,8 +157,8 @@ function filtradoLista(tipo,array){
                 array.push(marcado.value);
                 verDondeCae(tipo,array);
             }else{
-                let indice = array.indexOf(marcado.value);//agarrar el indice
-                array.splice(indice,1);//eliminar del arreglo
+                let indice = array.indexOf(marcado.value);//busca y guarda el indice
+                array.splice(indice,1);//eliminar el elemento del arreglo
                 verDondeCae(tipo,array);
             }
         };
@@ -331,11 +334,11 @@ function cargarAlCarrito(){
     }
     carritoDeCompra = new CarritoDeCompra(arrayDeProductosSacadoDelStorage,arrayDeCantidadSacadoDelStorage);
 
-    let botonAgregarAlCarrito = document.getElementsByClassName("botonAnadir");
+/*     let botonAgregarAlCarrito = document.getElementsByClassName("botonAnadir");
 
     for(let elemento of botonAgregarAlCarrito){
         elemento.addEventListener("click", () => {carritoDeCompra.botonAnadirAlCarrito(elemento.id)});
-    }
+    } */
 
     /*GUARDAR EN EL STORAGE CUANDO SALE DE LA PANTALLA */
     window.addEventListener("beforeunload", function (event) {

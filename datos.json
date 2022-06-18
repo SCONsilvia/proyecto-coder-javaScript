@@ -1,0 +1,146 @@
+[{
+    "imagen" : "../imagenes/Calculator-bro.png",
+    "marca" : "Casio",
+    "titulo" : "Casio FX-991SPX II",
+    "precio" : "32.89",
+    "tipo" : ["cientifica"],
+    "id" : "1"
+},
+{
+    "imagen" : "../imagenes/Calculator-bro.png",
+    "marca" : "Casio",
+    "titulo" : "Casio FX-82MS",
+    "precio" : "16.80",
+    "tipo" : ["cientifica"],
+    "id" : "2"
+},
+{
+    "imagen" : "../imagenes/Calculator-amico.png",
+    "marca" : "Canon",
+    "titulo" : "Canon MP1211-LTSC",
+    "precio" : "76.06",
+    "tipo" : ["impresora integrada"],
+    "id" : "3"
+},
+{
+    "imagen" : "../imagenes/Calculator-amico.png",
+    "marca" : "Casio",
+    "titulo" : "Casio FR-2650",
+    "precio" : "50.08",
+    "tipo" : ["impresora integrada"],
+    "id" : "4"
+},
+{
+    "imagen" : "../imagenes/Calculator-cuate.png",
+    "marca" : "Canon",
+    "titulo" : "Canon Ts1200tsc",
+    "precio" : "15.00",
+    "tipo" : ["mesa"],
+    "id" : "5"
+},
+{
+    "imagen" : "../imagenes/Calculator-rafiki.png",
+    "marca" : "Casio",
+    "titulo" : "Casio HL-815",
+    "precio" : "9.37",
+    "tipo" : ["bolsillo"],
+    "id" : "6"
+},
+{
+    "imagen" : "../imagenes/Calculator-amico.png",
+    "marca" : "Olivetti",
+    "titulo" : "Olivetti Logos 902",
+    "precio" : "79.00",
+    "tipo" : ["impresora integrada"],
+    "id" : "7"
+},
+{
+    "imagen" : "../imagenes/Calculator-cuate.png",
+    "marca" : "Olivetti",
+    "titulo" : "Olivetti Summa 60",
+    "precio" : "40.00",
+    "tipo" : ["mesa"],
+    "id" : "8"
+}
+,
+{
+    "imagen" : "../imagenes/Calculator-amico.png",
+    "marca" : "Olivetti",
+    "titulo" : "Olivetti Summa 301",
+    "precio" : "15.05",
+    "tipo" : ["impresora integrada","bolsillo"],
+    "id" : "9"
+},
+{
+    "imagen" : "../imagenes/Calculator-pana.png",
+    "marca" : "Casio",
+    "titulo" : "Casio FX-991SPX II",
+    "precio" : "16.80",
+    "tipo" : ["cientifica","solar"],
+    "id" : "10"
+},
+{
+    "imagen" : "../imagenes/Calculator-bro.png",
+    "marca" : "Casio",
+    "titulo" : "CASIO PRIZM FX-CG50",
+    "precio" : "80.99",
+    "tipo" : ["cientifica","grafica"],
+    "id" : "11"
+},
+{
+    "imagen" : "../imagenes/Calculator-rafiki.png",
+    "marca" : "Ibico",
+    "titulo" : "Ibico 081X",
+    "precio" : "15.99",
+    "tipo" : ["bolsillo"],
+    "id" : "12"
+},
+{
+    "imagen" : "../imagenes/Calculator-cuate.png",
+    "marca" : "Ibico",
+    "titulo" : "Ibico 212X",
+    "precio" : "23.78",
+    "tipo" : ["mesa"],
+    "id" : "13"
+},
+{
+    "imagen" : "../imagenes/Calculator-amico.png",
+    "marca" : "Ibico",
+    "titulo" : "Ibico 1491X",
+    "precio" : "83.78",
+    "tipo" : ["impresora integrada"],
+    "id" : "14"
+},
+{
+    "imagen" : "../imagenes/Calculator-bro.png",
+    "marca" : "Hp",
+    "titulo" : "HP 2AP18AA#ABA",
+    "precio" : "129.00",
+    "tipo" : ["cientifica","grafica"],
+    "id" : "15"
+},
+{
+    "imagen" : "../imagenes/Calculator-bro.png",
+    "marca" : "Hp",
+    "titulo" : "HP 50g",
+    "precio" : "321.00",
+    "tipo" : ["cientifica","grafica"],
+    "id" : "16"
+},
+{
+    "imagen" : "../imagenes/Calculator-pana.png",
+    "marca" : "Casio",
+    "titulo" : "Casio FX-9750gIII",
+    "precio" : "56.08",
+    "tipo" : ["cientifica","grafica","solar"],
+    "id" : "17"
+},
+{
+    "imagen" : "../imagenes/Calculator-pana.png",
+    "marca" : "Casio",
+    "titulo" : "Casio FX 260 Solar II",
+    "precio" : "56.08",
+    "tipo" : ["cientifica","solar"],
+    "id" : "18"
+}
+]

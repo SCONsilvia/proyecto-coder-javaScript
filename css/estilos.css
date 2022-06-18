@@ -100,6 +100,11 @@
         right: 8px;
         font-size: 1.3rem; }
 
+.titulo {
+  text-align: center;
+  margin: 10px;
+  font-size: 3rem; }
+
 .calculadora {
   display: grid;
   /*"area" column/ row*/
@@ -136,7 +141,8 @@
     color: white;
     background-color: #990026;
     box-shadow: 6px 6px 10px -1px rgba(216, 35, 105, 0.96), -6px -6px 10px -1px rgba(226, 30, 30, 0.1);
-    font-size: 2rem; }
+    font-size: 2rem;
+    border: none; }
     .calculadora .botonesCalculadora:active {
       background-color: #ae4162;
       box-shadow: 6px 6px 10px -1px rgba(53, 2, 182, 0.15), -6px -6px 10px -1px rgba(189, 45, 134, 0.7); }
@@ -235,6 +241,11 @@ header {
         border: #a10030 solid;
         border-radius: 5px;
         padding: 8px; }
+        header .nav .nav__list .nav__item:hover {
+          background-color: #a10030;
+          box-shadow: 2px 5px 10px #a10030; }
+        header .nav .nav__list .nav__item:active {
+          color: aquamarine; }
         header .nav .nav__list .nav__item .nav__item:visited {
           color: white; }
   header .carrito {

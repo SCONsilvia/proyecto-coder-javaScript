@@ -23,6 +23,15 @@ header{
                 border:#a10030 solid;
                 border-radius:5px;
                 padding: 8px;
+
+                &:hover{
+                    background-color: #a10030;
+                    box-shadow: 2px 5px 10px #a10030;
+                }
+
+                &:active{
+                    color: aquamarine;
+                }
         
                 .nav__item:visited{
                     color: white;
