@@ -211,7 +211,7 @@ traerDatos().then((retorno) => {//trae el array de prodcutos
     let imagen;//para cambiar la ruta de la imagen pues si no no funciona
     for(let i = 0; i < retorno.length; i++){
         imagen = retorno[i].imagen;
-        imagen = imagen.slice(3);
+        imagen = imagen.slice(3);//copio la ruta desde la pocision 3 osea borramos ../ copia desde imagen/
         listaDeProductos.push(new productos(imagen,retorno[i].marca,retorno[i].titulo,retorno[i].precio,retorno[i].tipo,retorno[i].id))
     }
     

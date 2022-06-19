@@ -7,12 +7,10 @@ function mostrar(elemento){
         inputCalculadora.value = inputCalculadora.value.slice(0, -1)/*Copiar desde la pocision 0 del array hasta la penultima*/
     }else if(elemento.id == "f5"){
         mostrarResultado();
-    }else if(elemento.id == "f13"){
+    }else if(elemento.id == "f13"){//Ce borrar todo
         inputCalculadora.value = "";
     }else if(elemento.id == "f9"){//ans
         verAnterior();
-    }else if(elemento.id == "f12"){//md
-        
     }else{
         inputCalculadora.value += elemento.innerHTML;//agregar a value el contenido del a
     }
@@ -32,7 +30,7 @@ function esUnSimbolo(elemento,arrayAVer){
     return arrayAVer.some((elementoDeArray) => elementoDeArray == elemento);
 }
 
-function miPropioSplit(arrayAPicar, arrayDePicacion){
+function miPropioSplit(arrayAPicar, arrayDePicacion){//separa el strin en array de 1*-1+1 a [1,*,-1,+,1]
     let numero = "";
     let array = [];
     if (arrayAPicar[0] == "("){
@@ -87,7 +85,6 @@ function calcularPotencias(arrayDeOperacion){
     let a;
     let b;
     let resultado;
-    let nuevoArr
     for(let i = 0; i < arrayDeOperacion.length; i++){
         if(arrayDeOperacion[i] == "^"){
             operacion = potencia;
@@ -100,8 +97,6 @@ function calcularPotencias(arrayDeOperacion){
             i = i-1;
         }
     }
-    console.log(arrayDeOperacion+'p');
-    return arrayDeOperacion;
 }
 
 function calcularMultiplicacionDivision(arrayDeOperacion){
@@ -130,8 +125,6 @@ function calcularMultiplicacionDivision(arrayDeOperacion){
             i = i-1;
         }
     }
-    console.log(arrayDeOperacion+'MULDI');
-    return arrayDeOperacion;
 }
 
 function calcularSumaResta(arrayDeOperacion){
@@ -160,9 +153,6 @@ function calcularSumaResta(arrayDeOperacion){
             i = i-1;
         }
     }
-    console.log(arrayDeOperacion+'sr');
-    
-    return arrayDeOperacion;
 }
 
 function calcularModulo(arrayDeOperacion){
@@ -182,8 +172,6 @@ function calcularModulo(arrayDeOperacion){
             i = i-1;
         }
     }
-    console.log(arrayDeOperacion+'M');
-    return arrayDeOperacion;
 }
 
 function calcularPedacito(arrayDeOperacion){
@@ -196,7 +184,7 @@ function calcularPedacito(arrayDeOperacion){
     return arrayDeOperacion[0];
 }
 
-function desapilar(array){
+function desapilar(array){//desapila hasta que encuentre (
     let arrayDeCalculo = [];
     while(array[array.length-1] != "("){
         arrayDeCalculo.unshift(array[array.length-1]);
@@ -206,29 +194,26 @@ function desapilar(array){
     return arrayDeCalculo;
 }
 
-function calcular(array){
+function calcular(array){//[(,1,+,2,)]
     let pila = [];
     let resultado = 0;
     for(let elemento of array){
-        if(elemento != ")"){
+        if(elemento != ")"){//apilo hasta todo lo que no sea )
             pila.push(elemento);
-            console.log(pila);
         }else{
-            let arrayACalcular = desapilar(pila);
-            pila.push(calcularPedacito(arrayACalcular));
-            console.log(pila);
+            let arrayACalcular = desapilar(pila);//desapilo todo hasta ( y todo lo que voy desapilando es lo que voy a calcular
+            pila.push(calcularPedacito(arrayACalcular));//calcularPedacito([(,1,+,2]) retorna 3. Calcula una expresion que estaba entre parentesis
         }
     }
-    resultado = calcularPedacito(pila);
+    resultado = calcularPedacito(pila);//calcula lo que quedo en la pila que seria una expresion sin parentesis
     return resultado;
 }
 
 function mostrarResultado(){
     let inputOperacion = inputCalculadora.value;
     let arrayDeOperacion = miPropioSplit(inputOperacion, ["+","-","*","/","^","%","(",")"]);
-    console.log(arrayDeOperacion);
     let resultado = calcular(arrayDeOperacion);
-    localStorage.setItem("ant", resultado);
+    localStorage.setItem("ant", resultado);//guardo el resultado en el local
     inputCalculadora.value = resultado;
 }
 

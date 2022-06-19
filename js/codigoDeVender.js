@@ -115,10 +115,8 @@ function verificarPorTipo(arrayDeFiltro){
 
 function verificarPorMarca(arrayDeFiltro, arrayDeProductos){
     let productosFiltradoMarca = [];
-    console.log(arrayDeFiltro, arrayDeProductos);
     for(let i = 0; i < arrayDeProductos.length; i++){
         for(let j of arrayDeFiltro){
-            console.log( arrayDeProductos[i].marca.toLowerCase(), j.valor);
             if(arrayDeProductos[i].marca.toLowerCase() == j.valor || j.valor == "todomarca"){
                 productosFiltradoMarca.push(arrayDeProductos[i]);
             }
@@ -395,13 +393,6 @@ function cargarAlCarrito(){
         arrayDeCantidadSacadoDelStorage = [];
     }
     carritoDeCompra = new CarritoDeCompra(arrayDeProductosSacadoDelStorage,arrayDeCantidadSacadoDelStorage);
-
-    /*     //volvemos a a;adir el addEventListener para agregar al carrito
-        let botonAgregarAlCarrito = document.getElementsByClassName("botonAnadir");
-
-        for(let elemento of botonAgregarAlCarrito){
-            elemento.addEventListener("click", () => {carritoDeCompra.botonAnadirAlCarrito(elemento.id)});
-        } */
 
     /*GUARDAR EN EL STORAGE CUANDO SALE DE LA PANTALLA */
     window.addEventListener("beforeunload", function (event) {
