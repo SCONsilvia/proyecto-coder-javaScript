@@ -94,11 +94,6 @@
         .principal .productos .producto__informacion__precio {
           font-size: 1.4rem;
           margin-bottom: 3px; }
-      .principal .productos .producto .corazon {
-        position: absolute;
-        top: 7px;
-        right: 8px;
-        font-size: 1.3rem; }
 
 .titulo {
   text-align: center;
@@ -211,7 +206,8 @@
   grid-area: parentesisCerrado; }
 
 #f12 {
-  grid-area: md; }
+  grid-area: md;
+  display: none; }
 
 #f13 {
   grid-area: borrarUno; }
@@ -325,7 +321,8 @@ header {
         padding: 8px;
         border-radius: 15px;
         background-color: #551d5c;
-        font-size: 1.6rem; }
+        font-size: 1.6rem;
+        text-decoration-line: line-through; }
 
 * {
   margin: 0;

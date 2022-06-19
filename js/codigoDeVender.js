@@ -1,108 +1,158 @@
-const meterArray = (tipoProducto) => tipoProducto.split("/");
 let divProductos = document.getElementById("productos");
 let carrito = document.getElementsByClassName("carrito__icono");
 let carritoDeCompra;
-
-class productos{
-    constructor(imagen,marca,titulo,precio,tipo,id){
-        this.imagen = imagen;
-        this.marca = marca;
-        this.titulo = titulo;
-        this.precio = precio;
-        this.tipo = tipo;
-        this.id = id;
-    }
-}
 let listaDeProductos;
-/* async function traerDatos(){
-    const listaDeProductosguevo = [];
-    let d,j
-    return fetch('https://sconsilvia.github.io/proyecto-coder-javaScript/datos.json') //const hola = await fetch('https://sconsilvia.github.io/proyecto-coder-javaScript/datos.json');
-    // Exito
-    .then(response => response.json())  // convertir a json const dato = await hola.json();
-    .then(json => {
-        console.log(json.length);
-        for(let i = 0; i < json.length; i++){
-            listaDeProductosguevo.push(new productos(json[i].imagen,json[i].marca,json[i].titulo,json[i].precio,json[i].tipo,json[i].id))
-        }
-        console.log("guevo"+listaDeProductosguevo)
-        resolve(listaDeProductosguevo)
-        reject("Rejected")
-    })    //imprimir los datos en la consola
-    .catch(function(error){
-        reject("Rejected")
-    }); // Capturar errores
-} */
-
-async function traerDatos(){
-    const listaDeProductosguevo = [];
-    let d,j
-    const buscar = await fetch('https://sconsilvia.github.io/proyecto-coder-javaScript/datos.json') //const hola = await fetch('https://sconsilvia.github.io/proyecto-coder-javaScript/datos.json');
-    return await buscar.json()
-    
-}
-
-
-
-/* const listaDeProductos = [
-    new productos("../imagenes/Calculator-bro.png","Casio","Casio FX-991SPX II",32.89,meterArray("cientifica"),1), 
-    new productos("../imagenes/Calculator-bro.png","Casio","Casio FX-82MS",16.80,meterArray("cientifica"),2), 
-    new productos("../imagenes/Calculator-amico.png","Canon","Canon MP1211-LTSC",76.06,meterArray("impresora integrada"),3),
-    new productos("../imagenes/Calculator-amico.png","Casio","Casio FR-2650",50.08,meterArray("impresora integrada"),4),
-    new productos("../imagenes/Calculator-cuate.png","Canon","Canon Ts1200tsc",15.00,meterArray("mesa"),5),
-    new productos("../imagenes/Calculator-rafiki.png","Casio","Casio HL-815",9.37,meterArray("bolsillo"),6),
-    new productos("../imagenes/Calculator-amico.png","Olivetti","Olivetti Logos 902",79.00,meterArray("impresora integrada"),7),
-    new productos("../imagenes/Calculator-cuate.png","Olivetti","Olivetti Summa 60",40.00,meterArray("mesa"),8),
-    new productos("../imagenes/Calculator-amico.png","Olivetti","Olivetti Summa 301",15.05,meterArray("impresora integrada/bolsillo"),9),
-    new productos("../imagenes/Calculator-pana.png","Casio","Casio FX 260 Solar II",16.80,meterArray("cientifica/solar"),10), 
-    new productos("../imagenes/Calculator-bro.png","Casio","CASIO PRIZM FX-CG50",80.99,meterArray("cientifica/grafica"),11), 
-    new productos("../imagenes/Calculator-rafiki.png","Ibico","Ibico 081X",15.99,meterArray("bolsillo"),12), 
-    new productos("../imagenes/Calculator-cuate.png","Ibico","Ibico 212X",23.78,meterArray("mesa"),13), 
-    new productos("../imagenes/Calculator-amico.png","Ibico","Ibico 1491X",83.78,meterArray("impresora integrada"),14),
-    new productos("../imagenes/Calculator-bro.png","Hp","HP 2AP18AA#ABA",129.00,meterArray("cientifica/grafica"),15), 
-    new productos("../imagenes/Calculator-bro.png","Hp","HP 50g",321.00,meterArray("cientifica/grafica"),16),
-    new productos("../imagenes/Calculator-pana.png","Casio","Casio FX-9750gIII",56.08,meterArray("cientifica/grafica/solar"),17), 
-    new productos("../imagenes/Calculator-pana.png","Casio","Casio FX 260 Solar II",56.08,meterArray("cientifica/solar"),18), 
-]; */
 
 /*Dibujar los productos en el html*/
 function meterProducto(array){
-    for(let elemento of array){
+    if(array.length == 0){
         let nuevoProducto = document.createElement("div");
-        nuevoProducto.className = "producto";
-        //id = elemento.id
-        //{id,marca}=elemento desfracmentacion
-        let {imagen,id,marca,titulo,precio} = elemento;
-        nuevoProducto.innerHTML = `
-        <div class="contenedorImg">
-            <img src=${imagen}>
-        </div>
-        <div class="linea">
-            <a class="botonAnadir" id="${id}">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <p class="letrasAnadirAlCarrito">Anadir al carrito</p>
-            </a>
-        </div>
-        <div class="producto__informacion">
-            <p class="producto__informacion__marca">${marca}</p>
-            <h2 class="producto__informacion__titulo">${titulo}</h2>
-            <p class="producto__informacion__precio">U$S${precio}</p>
-            <a href="#" class="corazon">
-                <i class="fa-regular fa-heart"></i>
-            </a>
-            <!-- <span>
-                <i class="fa-solid fa-heart"></i>
-            </span> -->
-        </div>
-        `;
+        nuevoProducto.innerHTML = `<p>No existen resultado<p>`;
         divProductos.appendChild(nuevoProducto);
+    }else{
+        for(let elemento of array){
+            let nuevoProducto = document.createElement("div");
+            nuevoProducto.className = "producto";
+            //id = elemento.id
+            //{id,marca}=elemento desfracmentacion
+            let {imagen,id,marca,titulo,precio} = elemento;
+            nuevoProducto.innerHTML = `
+            <div class="contenedorImg">
+                <img src=${imagen}>
+            </div>
+            <div class="linea">
+                <a class="botonAnadir" id="${id}">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <p class="letrasAnadirAlCarrito">Anadir al carrito</p>
+                </a>
+            </div>
+            <div class="producto__informacion">
+                <p class="producto__informacion__marca">${marca}</p>
+                <h2 class="producto__informacion__titulo">${titulo}</h2>
+                <p class="producto__informacion__precio">U$S${precio}</p>
+            </div>
+            `;
+            divProductos.appendChild(nuevoProducto);
+        }
+        //a;adir el addEventListener para agregar al carrito
+        let botonAgregarAlCarrito = document.getElementsByClassName("botonAnadir");
+
+        for(let elemento of botonAgregarAlCarrito){
+            elemento.addEventListener("click", () => {carritoDeCompra.botonAnadirAlCarrito(elemento.id)});
+        }
     }
 }
 
 /*Haciendo Funcionar los filtros*/
+class Filtro{
+    constructor(valor,tipo){
+        this.valor = valor;
+        this.tipo = tipo;
+    }
+}
 
-let arrayMarca = [];
-let arrayTipo = [];
+let productosFiltrados = [];
+let arrayDeFiltrado = [];
+let rangoMin = 0;
+let rangoMax = 10000;
+
+function filtraPrecio(array){//filtra por precio
+    let nuevoArr = [];
+    for(let elemento of array){
+        if(elemento.precio >= rangoMin && elemento.precio <= rangoMax){
+            nuevoArr.push(elemento);
+        }
+    }
+    return nuevoArr;
+}
+//obtener id de precios
+let hasta50 = document.getElementById("precio1");
+let hasta100 = document.getElementById("precio2");
+let botonPrecio = document.getElementById("botonPrecio");
+
+hasta50.addEventListener("click", () => {rangoMin = 0; rangoMax = 50; filtradoGeneral();});
+hasta100.addEventListener("click", () => {rangoMin = 50; rangoMax = 100; filtradoGeneral();});
+botonPrecio.addEventListener("click", ()=>{
+    let precioDesde = document.getElementById("precioDesde");
+    let precioHasta = document.getElementById("precioHasta");
+    precioDesde.value == ""? rangoMin = 0 : rangoMin = parseInt(precioDesde.value); 
+    precioHasta.value == ""? rangoMax = 10000 : rangoMax = parseInt(precioHasta.value); 
+    filtradoGeneral();
+})
+
+function comparacion(a, b) {//ayuda al sort en la comparacion
+    //"marca" es menor a "tipo"? "marca" es menor a "marca"? "tipo" es menor a "tipo"? "tipo" es menor a "marca"? string es menor a string
+    if (a.tipo < b.tipo) {
+      return -1;
+    }
+    if (a.tipo > b.tipo) {
+      return 1;
+    }
+    // a igual b
+    return 0;
+}
+
+function verificarPorTipo(arrayDeFiltro){
+    let productosFiltradoTipo = [];
+    let verSiYaMetioUnProducto = false;//para evitar repetidos
+    for(let i = 0; i < listaDeProductos.length; i++){
+        for(let j in listaDeProductos[i].tipo){
+            for(let h of arrayDeFiltro){
+                if(listaDeProductos[i].tipo[j] == h.valor || h.valor == "todotipo"){
+                    productosFiltradoTipo.push(listaDeProductos[i]);
+                    verSiYaMetioUnProducto = true;
+                    break;
+                }
+            }
+            if(verSiYaMetioUnProducto){
+                verSiYaMetioUnProducto = false;
+                break;
+            }
+        }
+    }
+    return productosFiltradoTipo;
+}
+
+function verificarPorMarca(arrayDeFiltro, arrayDeProductos){
+    let productosFiltradoMarca = [];
+    console.log(arrayDeFiltro, arrayDeProductos);
+    for(let i = 0; i < arrayDeProductos.length; i++){
+        for(let j of arrayDeFiltro){
+            console.log( arrayDeProductos[i].marca.toLowerCase(), j.valor);
+            if(arrayDeProductos[i].marca.toLowerCase() == j.valor || j.valor == "todomarca"){
+                productosFiltradoMarca.push(arrayDeProductos[i]);
+            }
+        }
+    }
+    return productosFiltradoMarca;
+}
+
+function buscandoProductos(arrayDeFiltro){
+    productosFiltrados = verificarPorTipo(arrayDeFiltro);
+    productosFiltrados = verificarPorMarca(arrayDeFiltro, productosFiltrados);
+    productosFiltrados = filtraPrecio(productosFiltrados);
+
+    divProductos.innerHTML = "";
+    meterProducto(productosFiltrados);
+}
+
+function productosAFitra(arrayDeFiltros){//acomoda el array para luego mandar a buscar 
+    let arrayDeFiltrosCopiado = [];
+    arrayDeFiltrosCopiado = arrayDeFiltrosCopiado.concat(arrayDeFiltros);
+    if(arrayDeFiltrosCopiado.length == 0){//array vacio
+        arrayDeFiltrosCopiado.push(new Filtro("todomarca","marca"));
+        arrayDeFiltrosCopiado.push(new Filtro("todotipo","tipo"));
+    }else if(buscarIndicePorTipo(arrayDeFiltrosCopiado, "marca",0,arrayDeFiltrosCopiado.length) != -1){//existe una marca en el array
+        if (buscarIndicePorTipo(arrayDeFiltrosCopiado, "tipo",0,arrayDeFiltrosCopiado.length) == -1) {//no existe tipo
+            arrayDeFiltrosCopiado.push(new Filtro("todotipo","tipo"));
+        }
+    }else{//si no esta vacio y no existe marca entonces ya de por si existe tipo
+        arrayDeFiltrosCopiado.push(new Filtro("todomarca","marca"));
+    }
+    arrayDeFiltrosCopiado.sort(comparacion);//ordenando array
+    buscandoProductos(arrayDeFiltrosCopiado);
+}
+
 
 //desmarca todos los check menos el check TODO
 function desmarcarTodo(valor){
@@ -112,91 +162,69 @@ function desmarcarTodo(valor){
     }
 }
 
-function verCondicion(unElemento,elemento,tipo){
-    return tipo=="marca" ? (unElemento.marca.toLowerCase() == elemento):(unElemento.tipo.some((elementoDelArray) => elementoDelArray == elemento))
-}
-
-//busca y devuelve el producto entrero de lista de productos
-function nuevoArr(tipo,array){
-    let nuevoArr = [];
-    for(let elemento of array){
-        nuevo = listaDeProductos.filter((unElemento) => verCondicion(unElemento,elemento,tipo));
-        nuevoArr = nuevoArr.concat(nuevo);
-    }
-    return nuevoArr
-}
-
-//ver si el filtro marca y el filtro tipo estan llenos y los une
-function dibujadoFiltro(){
-    let array1 = [];
-    let array2 = [];
-    let array3 = [];
-    if(arrayMarca.length != 0){
-        array1 = nuevoArr("marca",arrayMarca);
-        array3 = array1;
-    }
-    if(arrayTipo.length != 0){
-        array2 = nuevoArr("tipo",arrayTipo);
-        array3 = array2;
-    }
-    if(arrayMarca.length != 0 && arrayMarca.length != 0){
-        array3 = array2;
-        //evitando repetidos
-        for(let e of array1){
-            if(!(array2.some((elemet) => elemet == e))){
-                array3.push(e);
+//arregla el array de filtros ayuda para cuando tienes marcado algo y marca otra cosa ejemplo tienes marcado TODO entonce desmarcar hp casio y todo lo que este marcado pero si tienes marcado TODO y luego marcas casio entonces desmarca TODO
+function revisarArray(array,tipo){
+    if(array.some((e) => e.valor == `todo${tipo}`)){//ver si todomarca o todotipo existe
+        let indice = buscarIndice(array, `todo${tipo}`);
+        let indice2 = buscarIndicePorTipo(array,tipo,indice+1,array.length);//devuelve 1 si encontro algo adelande de TODOM osea otra marca
+        if(indice2 != -1){//[,,parado,,algoAdelante,] si parado es un todoTipo/Marca y adelante hay otra cosa con su mismo tipo entonces debo deschekear todo y lo borro del array
+            array.splice(indice,1);
+            let marcado = document.getElementById(`${tipo}0`);
+            marcado.checked = false;
+        }else{//borrando y deschekeando lo de atras. Si no entonces tengo algo asi [tipo1,,tipo3,tipo0] tipo 0 es que el chek todo esta marcado asi que debo desmarcar todos lo demas y tambien lo borro del array
+            let j = indice;
+            let resultado = buscarIndicePorTipo(array, tipo,0,j);
+            while(resultado != -1){
+                array.splice(resultado,1);//elimina un elemento
+                j--;
+                resultado = buscarIndicePorTipo(array, tipo,0,j);
             }
+            desmarcarTodo(tipo);
         }
     }
-    divProductos.innerHTML = "";
-    meterProducto(array3);
 }
 
-//Ve si el check TODO esta marcado o si esta marcado otra check o si ningun check esta marcado
-function verDondeCae(tipo,array){
-    if(array[0] == "todo" && array.length != 1){//si TODO estaba marcado y luego se seleciona otra opcion se desmarca TODO
-        let marcado = document.getElementById(`${tipo}0`);
-        marcado.checked = false;
-        array.shift();
-        dibujadoFiltro();
-    }else if(array.some((elemento) => elemento == "todo")){//si esta hay varios check marcados y luego se marca el check TODO
-        desmarcarTodo(tipo);
-        array.splice(0,array.length-1);//borrar todo lo del array excepto la ultima posicion
-        divProductos.innerHTML = "";//limpia todo el html pues si no se repiten las cosas
-        meterProducto(listaDeProductos); //mete todos los productos de nuevo
-    }else if(arrayMarca.length == 0 && arrayTipo.length == 0){//si todos los filtros estan desmarcado
-        divProductos.innerHTML = "";
-        meterProducto(listaDeProductos);
-    }else{
-        dibujadoFiltro();
+function buscarIndicePorTipo(array, valorABuscar,indice,hasta){//devuelve el indice del primer tipo a buscar que encuentre, busca "marca" o "tipo"
+    for(let i = indice; i < hasta; i++){
+        if(array[i].tipo == valorABuscar){
+            return i;
+        }
     }
-    //volvemos a a;adir el addEventListener para agregar al carrito
-    let botonAgregarAlCarrito = document.getElementsByClassName("botonAnadir");
-
-    for(let elemento of botonAgregarAlCarrito){
-        elemento.addEventListener("click", () => {carritoDeCompra.botonAnadirAlCarrito(elemento.id)});
-    }
+    return -1;
 }
 
-//pone el onclick a los check de los filtros, los id son marca1 marca2 etc
-function filtradoLista(tipo,array){
+function buscarIndice(array, valorABuscar){//devuelve el indice del primer valor a buscar que encuentre, busca que si es casio hp sobremesa bolsillo
+    for(let e in array){
+        if(array[e].valor == valorABuscar){
+            return parseInt(e);
+        }
+    }
+    return -1;
+}
+
+function filtradoGeneral(){//funcion que hace todo
+    revisarArray(arrayDeFiltrado,"marca");
+    revisarArray(arrayDeFiltrado,"tipo");
+    productosAFitra(arrayDeFiltrado);
+}
+
+//pone el onclick a los check de los filtros: marca/tipo
+function filtradoLista(tipo){
     for(let i = 0; i < 6; i++){
         let marcado = document.getElementById(`${tipo}${i}`);
         marcado.onclick = () => {
+            let valor = marcado.value;
             if (marcado.checked){
-                array.push(marcado.value);
-                verDondeCae(tipo,array);
+                arrayDeFiltrado.push(new Filtro(valor,tipo));
             }else{
-                let indice = array.indexOf(marcado.value);//busca y guarda el indice
-                array.splice(indice,1);//eliminar el elemento del arreglo
-                verDondeCae(tipo,array);
+                let indice = buscarIndice(arrayDeFiltrado, valor);//buscar indice para eliminar esa pocision en el arr
+                arrayDeFiltrado.splice(indice,1);//eliminar el elemento del arreglo
             }
+            filtradoGeneral();
         };
-        if(array.length == 0){
-            verDondeCae(tipo,array);
-        }
     }
 }
+
 
 
 /*Ocultar o mostrar el carrito de compra*/
@@ -210,6 +238,7 @@ class CarritoDeCompra{
     constructor(arrayDelStorage, arrayDelStorageCantidad){
         this.productos = [];
         this.subTotal = 0;
+        this.impuesto = 22;
         this.cantidad = [];
         this.mostraProductosEnElCarrito(arrayDelStorage,arrayDelStorageCantidad);
     }
@@ -255,14 +284,17 @@ class CarritoDeCompra{
     }
 
     calcularYPintarSubtotal(valor){
-        console.log(valor)
-        console.log(this.subTotal )
         this.subTotal += valor;
         let subTotal = document.getElementById("subTotal");
         if (this.subTotal < 0){
             this.subTotal = 0
         }
         subTotal.innerHTML = this.subTotal.toFixed(2);
+        let impuesto = document.getElementById("impuesto");
+        let total = document.getElementById("total");
+        let impuestoTotal = ((this.subTotal *this.impuesto)/100).toFixed(2);//toFixed lo comvierte a string el dato
+        impuesto.innerHTML = impuestoTotal;
+        total.innerHTML = (this.subTotal+parseFloat(impuestoTotal)).toFixed(2);
     }
 
     agregarAlCarrito(id){
@@ -364,11 +396,12 @@ function cargarAlCarrito(){
     }
     carritoDeCompra = new CarritoDeCompra(arrayDeProductosSacadoDelStorage,arrayDeCantidadSacadoDelStorage);
 
-/*     let botonAgregarAlCarrito = document.getElementsByClassName("botonAnadir");
+    /*     //volvemos a a;adir el addEventListener para agregar al carrito
+        let botonAgregarAlCarrito = document.getElementsByClassName("botonAnadir");
 
-    for(let elemento of botonAgregarAlCarrito){
-        elemento.addEventListener("click", () => {carritoDeCompra.botonAnadirAlCarrito(elemento.id)});
-    } */
+        for(let elemento of botonAgregarAlCarrito){
+            elemento.addEventListener("click", () => {carritoDeCompra.botonAnadirAlCarrito(elemento.id)});
+        } */
 
     /*GUARDAR EN EL STORAGE CUANDO SALE DE LA PANTALLA */
     window.addEventListener("beforeunload", function (event) {
@@ -377,19 +410,23 @@ function cargarAlCarrito(){
     });
 }
 
-/* Cuando se cargue el navegador ejecuta esto */
-
-
-
-function inicializarTodaVaina(){
-    filtradoLista("marca",arrayMarca);
-    filtradoLista("tipo",arrayTipo);
+function inicializarTodo(){
+    filtradoLista("marca");
+    filtradoLista("tipo");
+    /* Cuando se cargue el navegador ejecuta esto */
     window.onload = cargarAlCarrito();
+    filtradoGeneral();//para pintar en el momento 0
 
 }
 
-traerDatos().then(function(listaguevo){
-    console.log("estoy aqui"+listaguevo)
-    listaDeProductos = listaguevo
-    inicializarTodaVaina()
+async function traerDatos(){
+    const buscar = await fetch('https://sconsilvia.github.io/proyecto-coder-javaScript/datos.json');
+    return await buscar.json();//retorna una promesa con el array de datos en caso de que lo encuentre SI DA BIEN TRAE[{imagen : "../imagenes/Calculator-bro.png", marca : "Casio", titulo : "Casio FX-991SPX II", precio : 32.89, tipo : ["cientifica"], id : "1"},...]
+}
+
+traerDatos().then(function(retorno){//retorno tiene el array de datos
+    listaDeProductos = retorno;
+    inicializarTodo();
+}).catch(function(error){
+    alert("fallo la carga del archivo");
 });

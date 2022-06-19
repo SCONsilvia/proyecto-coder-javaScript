@@ -9,8 +9,18 @@ function mostrar(elemento){
         mostrarResultado();
     }else if(elemento.id == "f13"){
         inputCalculadora.value = "";
+    }else if(elemento.id == "f9"){//ans
+        verAnterior();
+    }else if(elemento.id == "f12"){//md
+        
     }else{
         inputCalculadora.value += elemento.innerHTML;//agregar a value el contenido del a
+    }
+}
+
+function verAnterior(){
+    if(localStorage.getItem("ant")){
+        inputCalculadora.value += localStorage.getItem("ant");
     }
 }
 
@@ -72,43 +82,118 @@ function queOperacionUsar(a,b,funcion){
     return funcion(a,b);
 }
 
-function calcularPedacito(arrayDeOperacion){
+function calcularPotencias(arrayDeOperacion){
+    let operacion;
+    let a;
+    let b;
+    let resultado;
+    let nuevoArr
+    for(let i = 0; i < arrayDeOperacion.length; i++){
+        if(arrayDeOperacion[i] == "^"){
+            operacion = potencia;
+            a = arrayDeOperacion[i-1];
+            b = arrayDeOperacion[i+1];
+
+            resultado = queOperacionUsar(parseFloat(a),parseFloat(b),operacion);
+            arrayDeOperacion[i-1] = resultado;
+            arrayDeOperacion.splice(i, 2);
+            i = i-1;
+        }
+    }
+    console.log(arrayDeOperacion+'p');
+    return arrayDeOperacion;
+}
+
+function calcularMultiplicacionDivision(arrayDeOperacion){
     let operacion;
     let a;
     let b;
     let resultado
-    while(arrayDeOperacion.length > 1){
-        if(arrayDeOperacion[1] == "+"){
-            operacion = suma;
-            a = arrayDeOperacion[0];
-            b = arrayDeOperacion[2];
-        }else if(arrayDeOperacion[1] == "-"){
-            operacion = resta;
-            a = arrayDeOperacion[0];
-            b = arrayDeOperacion[2];
-        }else if(arrayDeOperacion[1] == "*"){
+    for(let i = 0; i < arrayDeOperacion.length; i++){
+        if(arrayDeOperacion[i] == "*"){
             operacion = multiplicacion;
-            a = arrayDeOperacion[0];
-            b = arrayDeOperacion[2];
-        }else if(arrayDeOperacion[1] == "/"){
+            a = arrayDeOperacion[i-1];
+            b = arrayDeOperacion[i+1];
+
+            resultado = queOperacionUsar(parseFloat(a),parseFloat(b),operacion);
+            arrayDeOperacion[i-1] = resultado;
+            arrayDeOperacion.splice(i, 2);
+            i = i-1;
+        }else if(arrayDeOperacion[i] == "/"){
             operacion = division;
-            a = arrayDeOperacion[0];
-            b = arrayDeOperacion[2];
-        }else if(arrayDeOperacion[1] == "%"){
-            operacion = modulo;
-            a = arrayDeOperacion[0];
-            b = arrayDeOperacion[2];
-        }else if(arrayDeOperacion[1] == "^"){
-            operacion = potencia;
-            a = arrayDeOperacion[0];
-            b = arrayDeOperacion[2];
+            a = arrayDeOperacion[i-1];
+            b = arrayDeOperacion[i+1];
+
+            resultado = queOperacionUsar(parseFloat(a),parseFloat(b),operacion);
+            arrayDeOperacion[i-1] = resultado;
+            arrayDeOperacion.splice(i, 2);
+            i = i-1;
         }
-        resultado = queOperacionUsar(parseInt(a),parseInt(b),operacion);
-        arrayDeOperacion.shift(); //elimina el primer elemento
-        arrayDeOperacion.shift();
-        arrayDeOperacion[0] = resultado;
     }
-    return resultado;
+    console.log(arrayDeOperacion+'MULDI');
+    return arrayDeOperacion;
+}
+
+function calcularSumaResta(arrayDeOperacion){
+    let operacion;
+    let a;
+    let b;
+    let resultado
+    for(let i = 0; i < arrayDeOperacion.length; i++){
+        if(arrayDeOperacion[i] == "+"){
+            operacion = suma;
+            a = arrayDeOperacion[i-1];
+            b = arrayDeOperacion[i+1];
+
+            resultado = queOperacionUsar(parseFloat(a),parseFloat(b),operacion);
+            arrayDeOperacion[i-1] = resultado;
+            arrayDeOperacion.splice(i, 2);
+            i = i-1;
+        }else if(arrayDeOperacion[i] == "-"){
+            operacion = resta;
+            a = arrayDeOperacion[i-1];
+            b = arrayDeOperacion[i+1];
+
+            resultado = queOperacionUsar(parseFloat(a),parseFloat(b),operacion);
+            arrayDeOperacion[i-1] = resultado;
+            arrayDeOperacion.splice(i, 2);
+            i = i-1;
+        }
+    }
+    console.log(arrayDeOperacion+'sr');
+    
+    return arrayDeOperacion;
+}
+
+function calcularModulo(arrayDeOperacion){
+    let operacion;
+    let a;
+    let b;
+    let resultado
+    for(let i = 0; i < arrayDeOperacion.length; i++){
+        if(arrayDeOperacion[i] == "%"){
+            operacion = modulo;
+            a = arrayDeOperacion[i-1];
+            b = arrayDeOperacion[i+1];
+
+            resultado = queOperacionUsar(parseFloat(a),parseFloat(b),operacion);
+            arrayDeOperacion[i-1] = resultado;
+            arrayDeOperacion.splice(i, 2);
+            i = i-1;
+        }
+    }
+    console.log(arrayDeOperacion+'M');
+    return arrayDeOperacion;
+}
+
+function calcularPedacito(arrayDeOperacion){
+    //para priorizar operadores
+    calcularPotencias(arrayDeOperacion);
+    calcularMultiplicacionDivision(arrayDeOperacion);
+    calcularSumaResta(arrayDeOperacion);
+    calcularModulo(arrayDeOperacion);
+
+    return arrayDeOperacion[0];
 }
 
 function desapilar(array){
@@ -143,7 +228,7 @@ function mostrarResultado(){
     let arrayDeOperacion = miPropioSplit(inputOperacion, ["+","-","*","/","^","%","(",")"]);
     console.log(arrayDeOperacion);
     let resultado = calcular(arrayDeOperacion);
-
+    localStorage.setItem("ant", resultado);
     inputCalculadora.value = resultado;
 }
 

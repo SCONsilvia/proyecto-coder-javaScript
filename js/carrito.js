@@ -1,8 +1,7 @@
 /*Codigo repetido de codigoDeVender.js para que el carrito funcione en index */
 
 let carrito = document.getElementsByClassName("carrito__icono");
-const meterArray = (tipoProducto) => tipoProducto.split("/");
-
+let listaDeProductos = [];
 
 class productos{
     constructor(imagen,marca,titulo,precio,tipo,id){
@@ -15,28 +14,6 @@ class productos{
     }
 }
 
-const listaDeProductos = [
-    new productos("imagenes/Calculator-bro.png","Casio","Casio FX-991SPX II",32.89,meterArray("cientifica"),1), 
-    new productos("imagenes/Calculator-bro.png","Casio","Casio FX-82MS",16.80,meterArray("cientifica"),2), 
-    new productos("imagenes/Calculator-bro.png","Canon","Canon MP1211-LTSC",76.06,meterArray("impresora integrada"),3),
-    new productos("imagenes/Calculator-bro.png","Casio","Casio FR-2650",50.08,meterArray("impresora integrada"),4),
-    new productos("imagenes/Calculator-bro.png","Canon","Canon TX-220TSII",15.00,meterArray("estandar"),5),
-    new productos("imagenes/Calculator-bro.png","Casio","Casio HL-815",9.37,meterArray("bolsillo"),6),
-    new productos("imagenes/Calculator-bro.png","Olivetti","Olivetti Logos 902",79.00,meterArray("impresora integrada"),7),
-    new productos("imagenes/Calculator-bro.png","Olivetti","Olivetti Summa 60",40.00,meterArray("mesa"),8),
-    new productos("imagenes/Calculator-bro.png","Olivetti","Olivetti Summa 301",15.05,meterArray("impresora integrada/bolsillo"),9),
-    new productos("imagenes/Calculator-bro.png","Casio","Casio FX 260 Solar II",16.80,meterArray("cientifica/solar"),10), 
-    new productos("imagenes/Calculator-bro.png","Casio","CASIO PRIZM FX-CG50",80.99,meterArray("cientifica/grafica"),11), 
-    new productos("imagenes/Calculator-bro.png","Ibico","Ibico 081X",15.99,meterArray("bolsillo/estandar"),12), 
-    new productos("imagenes/Calculator-bro.png","Ibico","Ibico 212X",23.78,meterArray("mesa"),13), 
-    new productos("imagenes/Calculator-bro.png","Ibico","Ibico 1491X",83.78,meterArray("impresora integrada"),14),
-    new productos("imagenes/Calculator-bro.png","Hp","HP 2AP18AA#ABA",129.00,meterArray("cientifica/grafica"),15), 
-    new productos("imagenes/Calculator-bro.png","Hp","HP 50g",321.00,meterArray("cientifica/grafica"),16),
-    new productos("imagenes/Calculator-bro.png","Casio","Casio FX-9750gIII",56.08,meterArray("cientifica/grafica/solar"),17), 
-    new productos("imagenes/Calculator-bro.png","Casio","Casio FX 260 Solar II",56.08,meterArray("cientifica/solar"),18), 
-];
-
-
 /*Ocultar o mostrar el carrito de compra*/
 carrito[0].addEventListener("click",()=>{
     let vistaCarrito = document.getElementsByClassName("carrito__vista");
@@ -48,6 +25,7 @@ class CarritoDeCompra{
     constructor(arrayDelStorage, arrayDelStorageCantidad){
         this.productos = [];
         this.subTotal = 0;
+        this.impuesto = 22;
         this.cantidad = [];
         this.mostraProductosEnElCarrito(arrayDelStorage,arrayDelStorageCantidad);
     }
@@ -99,6 +77,11 @@ class CarritoDeCompra{
             this.subTotal = 0
         }
         subTotal.innerHTML = this.subTotal.toFixed(2);
+        let impuesto = document.getElementById("impuesto");
+        let total = document.getElementById("total");
+        let impuestoTotal = ((this.subTotal *this.impuesto)/100).toFixed(2);//toFixed lo comvierte a string el dato
+        impuesto.innerHTML = impuestoTotal;
+        total.innerHTML = (this.subTotal+parseFloat(impuestoTotal)).toFixed(2);
     }
 
     agregarAlCarrito(id){
@@ -213,5 +196,24 @@ function cargarAlCarrito(){
     });
 }
 
-/* Cuando se cargue el navegador ejecuta esto */
-window.onload = cargarAlCarrito();
+
+function inicializarTodo(){
+    /* Cuando se cargue el navegador ejecuta esto */
+    window.onload = cargarAlCarrito();
+}
+
+async function traerDatos(){
+    const buscar = await fetch('https://sconsilvia.github.io/proyecto-coder-javaScript/datos.json');
+    return await buscar.json();
+}
+
+traerDatos().then((retorno) => {//trae el array de prodcutos
+    let imagen;//para cambiar la ruta de la imagen pues si no no funciona
+    for(let i = 0; i < retorno.length; i++){
+        imagen = retorno[i].imagen;
+        imagen = imagen.slice(3);
+        listaDeProductos.push(new productos(imagen,retorno[i].marca,retorno[i].titulo,retorno[i].precio,retorno[i].tipo,retorno[i].id))
+    }
+    
+    inicializarTodo();
+}).catch(error => console.log("Error"+error))
