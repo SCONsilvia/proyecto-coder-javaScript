@@ -3,6 +3,7 @@ let carrito = document.getElementsByClassName("carrito__icono");
 let carritoDeCompra;
 let listaDeProductos;
 
+
 /*Dibujar los productos en el html*/
 function meterProducto(array){
     if(array.length == 0){
@@ -13,8 +14,6 @@ function meterProducto(array){
         for(let elemento of array){
             let nuevoProducto = document.createElement("div");
             nuevoProducto.className = "producto";
-            //id = elemento.id
-            //{id,marca}=elemento desfracmentacion
             let {imagen,id,marca,titulo,precio} = elemento;
             nuevoProducto.innerHTML = `
             <div class="contenedorImg">
@@ -239,6 +238,24 @@ class CarritoDeCompra{
         this.impuesto = 22;
         this.cantidad = [];
         this.mostraProductosEnElCarrito(arrayDelStorage,arrayDelStorageCantidad);
+        this.inicializarBotonConfirmar();
+    }
+
+    inicializarBotonConfirmar(){
+        this.botonConfirmar = document.getElementById("botonConfirmar");
+        this.botonConfirmar.addEventListener("click",() => {
+            let listaCarrito = document.getElementById("productosCarrito");
+            listaCarrito.innerHTML = "";
+            this.cantidad = [];
+            this.subTotal = 0;
+            this.productos = []
+            this.calcularYPintarSubtotal(0)
+            Swal.fire({
+                title: "Compra confirmada",
+                icon: "success",
+                confirmButtonText: 'Continuar'
+              })
+        });
     }
 
     mostraProductosEnElCarrito(arrayDelStorage,arrayDelStorageCantidad){
@@ -343,7 +360,6 @@ class CarritoDeCompra{
             this.calcularYPintarSubtotal(elementoDeLaListaDeProductos.precio);
             this.productos.push(id);
 
-
         }
     }
 
@@ -381,7 +397,11 @@ class CarritoDeCompra{
         this.agregarAlCarrito(id);
         this.mensaje("Agregaste un producto");
     }
+
+    
+
 }
+
 
 function cargarAlCarrito(){
     let arrayDeProductosSacadoDelStorage
@@ -421,3 +441,5 @@ traerDatos().then(function(retorno){//retorno tiene el array de datos
 }).catch(function(error){
     alert("fallo la carga del archivo");
 });
+
+

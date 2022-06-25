@@ -28,6 +28,24 @@ class CarritoDeCompra{
         this.impuesto = 22;
         this.cantidad = [];
         this.mostraProductosEnElCarrito(arrayDelStorage,arrayDelStorageCantidad);
+        this.inicializarBotonConfirmar();
+    }
+
+    inicializarBotonConfirmar(){
+        this.botonConfirmar = document.getElementById("botonConfirmar");
+        this.botonConfirmar.addEventListener("click",() => {
+            let listaCarrito = document.getElementById("productosCarrito");
+            listaCarrito.innerHTML = "";
+            this.cantidad = [];
+            this.subTotal = 0;
+            this.productos = []
+            this.calcularYPintarSubtotal(0)
+            Swal.fire({
+                title: "Compra confirmada",
+                icon: "success",
+                confirmButtonText: 'Continuar'
+              })
+        });
     }
 
     mostraProductosEnElCarrito(arrayDelStorage,arrayDelStorageCantidad){
